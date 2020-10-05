@@ -1,5 +1,0 @@
-ld {
-  GLIBC_2.33 {
-    __x86_get_cpu_features;
-  }
-}
