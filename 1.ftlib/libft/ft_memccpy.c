@@ -6,7 +6,7 @@
 /*   By: nlee <nlee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 14:42:30 by nlee              #+#    #+#             */
-/*   Updated: 2020/10/08 17:53:46 by nlee             ###   ########.fr       */
+/*   Updated: 2020/10/13 15:33:47 by nlee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,17 @@
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	unsigned long dst_ptr;
-	unsigned long src_ptr;
-	unsigned char temp;
+	unsigned char	temp;
+	size_t			i;
 
-	dst_ptr = (long)dst;
-	src_ptr = (long)src;
-	while (n > 0)
+	i = 0;
+	while (n-- > 0)
 	{
-		temp = ((unsigned char *)src_ptr)[0];
-		((unsigned char *)dst_ptr)[0] = temp;
-		dst_ptr++;
-		src_ptr++;
-		if (temp == c)
-			return ((void *)src_ptr);
-		n--;
+		temp = ((unsigned char *)src)[i];
+		((unsigned char *)dst)[i] = temp;
+		i++;
+		if (temp == (unsigned char)c)
+			return ((void *)(dst + i));
 	}
-	return (NULL);
+	return (0);
 }

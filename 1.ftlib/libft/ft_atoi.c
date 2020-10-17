@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlee <nlee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 16:03:52 by nlee              #+#    #+#             */
-/*   Updated: 2020/10/13 15:33:34 by nlee             ###   ########.fr       */
+/*   Created: 2020/10/14 15:27:02 by nlee              #+#    #+#             */
+/*   Updated: 2020/10/15 11:54:59 by nlee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+int		ft_atoi(const char *str)
 {
-	unsigned char	temp;
-	size_t			i;
+	size_t	ret;
+	int		sign;
+	size_t	i;
 
-	if (!(dst) && !(src))
-		return (0);
+	ret = 0;
+	sign = 1;
 	i = 0;
-	while (n-- > 0)
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		temp = ((unsigned char *)src)[i];
-		((unsigned char *)dst)[i] = temp;
+		if (str[i] == '-')
+			sign = -1;
 		i++;
 	}
-	return (dst);
+	while (ft_isdigit(str[i]))
+	{
+		ret = (ret * 10) + (str[i] - '0');
+		i++;
+	}
+	if (sign > 0 && ret > LONG_MAX)
+		return (-1);
+	else if (sign < 0 && ret - 1 > LONG_MAX)
+		return (0);
+	return (sign * (int)ret);
 }

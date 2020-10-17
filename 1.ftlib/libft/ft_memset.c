@@ -6,7 +6,7 @@
 /*   By: nlee <nlee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 15:39:19 by nlee              #+#    #+#             */
-/*   Updated: 2020/10/08 17:50:21 by nlee             ###   ########.fr       */
+/*   Updated: 2020/10/13 15:34:32 by nlee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 void	*ft_memset(void *ptr, int value, size_t num)
 {
-	unsigned long temp;
+	size_t i;
 
-	temp = (long)ptr;
-	while (num > 0)
+	i = 0;
+	while (num-- > 0)
 	{
-		((unsigned char *)temp)[0] = value;
-		temp++;
-		num--;
+		((unsigned char *)ptr)[i] = value;
+		i++;
 	}
 	return (ptr);
 }
-
