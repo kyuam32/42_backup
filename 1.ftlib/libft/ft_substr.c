@@ -6,7 +6,7 @@
 /*   By: nlee <nlee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 12:16:57 by nlee              #+#    #+#             */
-/*   Updated: 2020/10/15 13:12:31 by nlee             ###   ########.fr       */
+/*   Updated: 2020/10/17 16:01:19 by nlee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if (start < 0)
 		start = src_len + start;
-	if(!(ret = (char *)malloc((len + 1) * sizeof(char))))
+	if (!(ret = (char *)malloc((len + 1) * sizeof(char))))
 		return (NULL);
 	i = 0;
 	while (len-- > 0)

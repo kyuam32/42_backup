@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_countchr.c                                      :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlee <nlee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 16:37:08 by nlee              #+#    #+#             */
-/*   Updated: 2020/10/13 16:40:07 by nlee             ###   ########.fr       */
+/*   Created: 2020/11/02 12:28:10 by nlee              #+#    #+#             */
+/*   Updated: 2020/11/02 21:15:39 by nlee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_countchr(const char *str, int c)
+void	ft_putstr_fd(char *s, int fd)
 {
-	size_t c_count;
-
-	c_count = 0;
-	while (*str)
-	{
-		if (*str == (unsigned char)c)
-			c_count++;
-		str++;
-	}
-	return (c_count);
+	if (!(s) || fd < 0)
+		return ;
+	write(fd, s, ft_strlen(s));
 }
