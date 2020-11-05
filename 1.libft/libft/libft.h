@@ -6,7 +6,7 @@
 /*   By: nlee <nlee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 16:05:01 by nlee              #+#    #+#             */
-/*   Updated: 2020/11/03 15:02:30 by nlee             ###   ########.fr       */
+/*   Updated: 2020/11/03 15:11:33 by nlee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ t_list				*ft_lstmap(t_list *lst,
 		void *(*f)(void *), void (*del)(void *));
 t_list				*ft_lstmap(t_list *lst,
 		void *(*f)(void *), void (*del)(void *));
+
 #endif
