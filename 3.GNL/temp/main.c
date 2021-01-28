@@ -1,17 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nlee <nlee@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/18 16:37:54 by nlee              #+#    #+#             */
-/*   Updated: 2020/12/08 16:49:36 by nlee             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "get_next_line.h"
-
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
 
 size_t	ft_strlen(const char *str)
 {
@@ -87,4 +78,21 @@ char	*ft_strjoin(char const *str1, char const *str2)
 	ft_strlcpy(ret, str1, str1_len + 1);
 	ft_strlcpy(ret + str1_len, str2, str2_len + 1);
 	return (ret);
+}
+
+int main()
+{
+	int fd_redbone;
+	char buff[6];
+	char *str;
+	int read_len;
+
+	str = 0;
+	fd_redbone = open("./newline.txt",O_RDONLY);
+	while((read_len = read(fd_redbone, buff, 5)))
+	{
+		buff[read_len] = '\0';
+		printf("%s", buff);
+		printf("--%d--\n",read_len);
+	}
 }
