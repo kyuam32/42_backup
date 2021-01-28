@@ -6,12 +6,11 @@
 /*   By: nlee <nlee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:37:54 by nlee              #+#    #+#             */
-/*   Updated: 2020/12/08 16:49:36 by nlee             ###   ########.fr       */
+/*   Updated: 2021/01/28 15:44:14 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 size_t	ft_strlen(const char *str)
 {

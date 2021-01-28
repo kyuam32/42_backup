@@ -6,7 +6,7 @@
 /*   By: nlee <nlee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 20:06:30 by nlee              #+#    #+#             */
-/*   Updated: 2021/01/27 18:40:21 by nlee             ###   ########.fr       */
+/*   Updated: 2021/01/28 15:41:31 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			check_newline(char *str)
 	int			i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '\n')
 			return (i);
@@ -55,7 +55,7 @@ int			end_process(char **storage, char **line)
 		return (0);
 	}
 	*line = ft_strdup("");
-	return(0);
+	return (0);
 }
 
 int			get_next_line(int fd, char **line)
