@@ -6,13 +6,13 @@
 /*   By: nlee <nlee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 20:06:30 by nlee              #+#    #+#             */
-/*   Updated: 2021/01/28 15:41:31 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/02/15 14:52:17 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int			check_newline(char *str)
+int	check_newline(char *str)
 {
 	int			i;
 
@@ -26,7 +26,7 @@ int			check_newline(char *str)
 	return (-1);
 }
 
-int			str_process(char **storage, char **line, int flag)
+int	str_process(char **storage, char **line, int flag)
 {
 	char		*temp;
 	int			len;
@@ -46,7 +46,7 @@ int			str_process(char **storage, char **line, int flag)
 	return (1);
 }
 
-int			end_process(char **storage, char **line)
+int	end_process(char **storage, char **line)
 {
 	if (*storage)
 	{
@@ -58,7 +58,7 @@ int			end_process(char **storage, char **line)
 	return (0);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*storage[OPEN_MAX];
 	char		buff[BUFFER_SIZE + 1];
