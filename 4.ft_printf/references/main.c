@@ -20,23 +20,48 @@
 //     va_end(ap);
 // }
 
-#define _FLAG_
-// - , 0
+// int		init_write(unsigned long long num, int base, char *base_str)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	if (n >= base)
+// 	{
+// 		i++;
+// 		i += init_write(n / base, base);
+// 	}
+// 	write(1, &base_str[n % base], 1);
+// 	return (i);
+// }
+
+// void    ft_temp(long long n)
+// {
+//     printf("%lld", n);
+// }
+
+void    test(char *form, ...)
+{
+    va_list ap;
+    long long num;
+
+    va_start(ap, form);
+    num = (long long)va_arg(ap, void *);
+    printf("test : [%llx]\n", num);
+}
+
 
 int main()
 {
-    char c;
-    const char *str = "HELLO EVERYONE";
+    int *n;
 
-    c = 0;
-    //printf("[%c]\n", str);
-    write(1, str, 1);
-    str++;
-    write(1, str, 1);
-    str++;
-    write(1, str, 1);
-    str++;
-    write(1, str, 1);
+    test("hi", n);
+    printf("printf : [%p]\n", n);
+    // unsigned long long num = 12345;
+    // char *str = "0123456789";
+
+    // ft_temp(n);
+    // printf("STRLEN %init_write(num, base, str)
+    // printf("%p\n%p\n%p\n", n, c, lld);
     // printf("[%l]\n[%l]\n", LONG_MIN, LgONG_MAX);
     // printf("[%ll]\n[%ll]\n", __LONG_LONG_MAX__, LONG_LONG_MIN);
     //printf("%010.*i\n",-2, 24);

@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/05 17:16:58 by namkyu            #+#    #+#              #
-#    Updated: 2021/02/16 13:40:55 by namkyu           ###   ########.fr        #
+#    Updated: 2021/02/22 16:28:01 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,16 @@ CFLAGS = -Wall -Werror -Wextra
 AR = ar
 AFLAGS = rcs
 
-FILES = ft_printf
+FILES = ft_printf\
+		SRC/ft_parse_part_A\
+		SRC/ft_parse_part_B\
+		SRC/ft_data_utils\
+		SRC/ft_display_utils
 LIB_DIR = ./libft
 INC_DIR = -I ./libft -I ./include
-SRC_DIR = ./
+SRC_DIR = ./SRC/
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
-OBJ_DIR = ./
+OBJ_DIR = ./SRC/
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
 $(NAME): $(OBJS)
