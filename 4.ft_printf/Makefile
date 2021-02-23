@@ -6,12 +6,11 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/05 17:16:58 by namkyu            #+#    #+#              #
-#    Updated: 2021/02/23 14:39:25 by namkyu           ###   ########.fr        #
+#    Updated: 2021/02/23 15:17:25 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-TEST = a.out
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
@@ -35,26 +34,10 @@ $(NAME): $(OBJS)
 	cp $(LIB_DIR)/libft.a $@
 	$(AR) $(AFLAGS) $@ $^
 
-	# make -C (dir) flag는 현재 directory에서 make 하지 않고 (dir)로 지정된 디렉토리에서 make 를 실행함
-
 $(OBJS):
 	$(CC) $(CFLAGS) -c $(SRCS) $(INC_DIR)
 
-	#remind! -c .o compile
-	#        -I header direcroty
-	#        -o output name
-
-$(TEST):
-	$(CC) $(SRCS) ./libft/libft.a $(INC_DIR) -o $@
-
 all: $(NAME)
-
-me:	$(TEST)
-
-meclean:
-	-rm -rf $(OBJS) $(TEST)
-
-again: meclean me
 
 clean:
 	-rm -rf $(OBJS)

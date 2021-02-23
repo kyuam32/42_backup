@@ -6,16 +6,16 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:45:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/02/23 14:07:08 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/02/23 19:02:30 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int case_integer(format_list *f_list, va_list *ap)
+int	case_integer(t_format_list *f_list, va_list *ap)
 {
-	long long num;
-	int	temp;
+	long long		num;
+	int				temp;
 
 	temp = va_arg(*ap, int);
 	num = temp;
@@ -29,9 +29,9 @@ int case_integer(format_list *f_list, va_list *ap)
 	return (init_num_case(f_list, (unsigned long long)num));
 }
 
-int case_undsigned_int(const char *format, format_list *f_list, va_list *ap)
+int	case_undsigned_int(const char *format, t_format_list *f_list, va_list *ap)
 {
-	unsigned long long num;
+	unsigned long long		num;
 
 	num = (unsigned long long)va_arg(*ap, unsigned int);
 	if (*format == 'u')
@@ -44,10 +44,10 @@ int case_undsigned_int(const char *format, format_list *f_list, va_list *ap)
 	return (init_num_case(f_list, num));
 }
 
-int case_character(const char *format, format_list *f_list, va_list *ap)
+int	case_character(const char *format, t_format_list *f_list, va_list *ap)
 {
-	int printed_char_len;
-	unsigned char c;
+	int					printed_char_len;
+	unsigned char		c;
 
 	printed_char_len = 0;
 	f_list->precision = -1;
@@ -70,13 +70,14 @@ int case_character(const char *format, format_list *f_list, va_list *ap)
 	return (printed_char_len + 1);
 }
 
-int case_string(format_list *f_list, va_list *ap)
+int	case_string(t_format_list *f_list, va_list *ap)
 {
-	int printed_char_len;
-	const char *str;
+	int				printed_char_len;
+	const char		*str;
 
 	printed_char_len = 0;
-	if ((str = va_arg(*ap, const char *)) == NULL)
+	str = va_arg(*ap, const char *);
+	if (str == NULL)
 		str = "(null)";
 	str_data_input(str, f_list);
 	if (f_list->align == LEFT_ALIGN)
@@ -95,10 +96,10 @@ int case_string(format_list *f_list, va_list *ap)
 	return (printed_char_len);
 }
 
-int case_pointer(format_list *f_list, va_list *ap)
+int	case_pointer(t_format_list *f_list, va_list *ap)
 {
-	unsigned long long num;
-	int	printed_char_len;
+	unsigned long long		num;
+	int						printed_char_len;
 
 	printed_char_len = 0;
 	num = (unsigned long long)va_arg(*ap, void *);
