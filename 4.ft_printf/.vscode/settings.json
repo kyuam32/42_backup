@@ -2,6 +2,8 @@
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
         "stdio.h": "c",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "iterator": "c",
+        "memory": "c"
     }
 }

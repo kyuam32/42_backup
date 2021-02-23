@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_display_utils.c                                 :+:      :+:    :+:   */
+/*   printf_display_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 15:11:19 by namkyu            #+#    #+#             */
-/*   Updated: 2021/02/22 15:23:05 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/02/23 14:07:09 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_numbers(unsigned long long num, int base, char *base_str)
 {
-	if (num >= base)
+	if (num >= (unsigned long long)base)
 		print_numbers(num / base, base, base_str);
 	write(1, &base_str[num % base], 1);
 }
@@ -36,12 +36,33 @@ int		print_precision(format_list *f_list)
 	int i;
 
 	i = 0;
-	if (f_list->sign < 0)
-		write(1, "-", 1);
-	while (i < f_list->precision - f_list->strlen)
+	if (f_list->base == NULL && f_list->strlen != 0)
 	{
-		write(1, "0", 1);
-		i++;
+		if (f_list->precision != -1 && f_list->width > f_list->strlen)
+		{
+			while(i < f_list->precision - f_list->strlen)
+			{
+				write(1, " ", 1);
+				i++;
+			}
+		}
+		return (i);
+	}
+	else
+	{
+		if (f_list->sign < 0)
+		{
+			if (f_list->precision != -1 || f_list->zero_symbol != '0')
+				write(1, "-", 1);
+		}
+		if (f_list->precision == -1)
+			return (i);
+		while (f_list->base != NULL && i < f_list->precision - f_list->strlen)
+		{
+			write(1, "0", 1);
+			i++;
+		}
+		return (i);
 	}
 	return (i);
 }
@@ -57,10 +78,17 @@ int		print_width(format_list *f_list)
 	else
 		print_len = f_list->width - f_list->strlen;
 	if (f_list->sign < 0)
+	{
 		print_len -= 1;
+		if (f_list->precision == -1 && f_list->zero_symbol == '0')
+			write(1, "-", 1);
+	}
 	while (i < print_len)
 	{
-		write(1, " ", 1);
+		if (f_list->zero_symbol == '0' && f_list->precision == -1 && f_list-> base != NULL)
+			write(1, "0", 1);
+		else
+			write(1, " ", 1);
 		i++;
 	}
 	return (i);
@@ -74,15 +102,19 @@ int	init_num_case(format_list *f_list, unsigned long long num)
 	if (f_list->align == LEFT_ALIGN)
 	{
 		printed_char_len += print_precision(f_list);
-		print_numbers(num, ft_strlen(f_list->base), f_list->base);
+		if (!(num == 0 && f_list->precision == 0))
+			print_numbers(num, ft_strlen(f_list->base), f_list->base);
 		printed_char_len += print_width(f_list);
 	}
 	else if (f_list->align == RIGHT_ALIGN)
 	{
 		printed_char_len += print_width(f_list);
 		printed_char_len += print_precision(f_list);
-		print_numbers(num, ft_strlen(f_list->base), f_list->base);
+		if (!(num == 0 && f_list->precision == 0))
+			print_numbers(num, ft_strlen(f_list->base), f_list->base);
 	}
 	printed_char_len += f_list->strlen;
+	if (f_list->sign < 0)
+		printed_char_len++;
 	return (printed_char_len);
 }

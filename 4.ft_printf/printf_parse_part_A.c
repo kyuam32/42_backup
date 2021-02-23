@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_part_A.c                                  :+:      :+:    :+:   */
+/*   printf_parse_part_A.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:45:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/02/22 16:25:33 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/02/23 14:07:07 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,22 @@ int	flag_parse(const char *format, format_list *f_list)
 	return (i);
 }
 
-int	width_parse(const char *format, format_list *f_list)
+int	width_parse(const char *format, format_list *f_list, va_list *ap)
 {
 	int i;
 
 	i = 0;
+	if (format[i] == '*')
+		{
+			f_list->width =va_arg(*ap, int);
+			if (f_list->width < 0)
+			{
+				f_list->width = f_list->width * -1;
+				f_list->align = LEFT_ALIGN;
+				f_list->zero_symbol = ' ';
+			}
+			return (1);
+		}
 	f_list->width = ft_atoi(format);
 	while(ft_isdigit(format[i]))
 		i++;
@@ -51,20 +62,19 @@ int	precision_parse(const char *format, format_list *f_list, va_list *ap)
 	int i;
 
 	i = 1;
-	if (ft_isdigit(format[i]) || format[i] == '+' || format[i] == '-')
+	f_list->precision = 0;
+	if (ft_isdigit(format[i]))
 	{
 		f_list->precision = ft_atoi(&format[i]);
-		i++;
 		while(ft_isdigit(format[i]))
 			i++;
 	}
 	else if (format[i] == '*')
 	{
-		f_list->precision = va_arg(*ap, int);
+		if ((f_list->precision = va_arg(*ap, int)) < 0)
+			f_list->precision = -1;
 		i++;
 	}
-	if (f_list->precision < 0)
-		f_list->precision = 0;
 	return (i);
 }
 
@@ -75,8 +85,8 @@ int	ft_printf_parsing_A(const char *format, format_list *f_list, va_list *ap, in
 	i = 0;
 	if (format[i] == '-' || format[i] == '0')
 		i += flag_parse(&format[i], f_list);
-	if (ft_isdigit(format[i]))
-		i += width_parse(&format[i], f_list);
+	if (ft_isdigit(format[i]) || format[i] == '*')
+		i += width_parse(&format[i], f_list, ap);
 	if (format[i] == '.')
 		i += precision_parse(&format[i], f_list, ap);
 	*ret += ft_printf_parsing_B(&format[i], f_list, ap);

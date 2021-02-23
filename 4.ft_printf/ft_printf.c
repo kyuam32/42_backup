@@ -6,24 +6,11 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 16:05:07 by namkyu            #+#    #+#             */
-/*   Updated: 2021/02/22 16:23:16 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/02/23 14:44:26 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-// void	f_test(format_list *f_list, char *s)
-// {
-// 	printf("~ ~ ~ ~ ~ [ FORMAT STATUS %s ] ~ ~ ~ ~ ~\n", s);
-// 	printf("zero_len    : [%d]\n", f_list->zero_len);
-// 	printf("zero_symbol : [%c]\n", f_list->zero_symbol);
-// 	printf("width_len   : [%d]\n", f_list->width);
-// 	printf("align       : [%d]\n", f_list->align);
-// 	printf("precision   : [%d]\n", f_list->precision);
-// 	printf("strlen      : [%d]\n", f_list->strlen);
-// 	printf("sign        : [%d]\n", f_list->sign);
-// 	printf("base        : [%s]\n", f_list->base);
-// }
 
 void	reset_flist(format_list *f_list)
 {
@@ -31,7 +18,7 @@ void	reset_flist(format_list *f_list)
 	f_list->zero_symbol = ' ';
 	f_list->width = 0;
 	f_list->align = RIGHT_ALIGN;
-	f_list->precision = 0;
+	f_list->precision = -1;
 	f_list->strlen = 0;
 	f_list->sign = 0;
 	f_list->base = NULL;
@@ -60,21 +47,15 @@ int	ft_printf(const char *format, ...)
 		format++;
 	}
 	free(f_list);
+	va_end(ap);
+	system("leaks a.out");
 	return (ret);
 }
 
-// int	main(void)
-// {
-// 	char *A;
-// 	int	n;
-// 	char *str;
+int	main(void)
+{
+	int *hi;
 
-// 	A = "ABC%3.pasd";
-// 	n = 43;
-// 	str = "HELLO";
-// 	printf("~~[%s]~~", A);
-// 	printf(" // ~~[%p]~~\n", A);
-
-// 	ft_printf(A, A);
-// 	return (0);
-// }
+	ft_printf("[%d]\n[%i]\n[%u]\n[%x]\n[%X]\n[%%]\n[%c]\n[%s]\n[%p]\n", 4, 4, 256, 1234, 1241, 'T', "hello", hi);
+	return (0);
+}

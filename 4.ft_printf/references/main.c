@@ -39,23 +39,27 @@
 //     printf("%lld", n);
 // }
 
-void    test(char *form, ...)
-{
-    va_list ap;
-    long long num;
+// void    test(char *form, ...)
+// {
+//     va_list ap;
+//     long long num;
 
-    va_start(ap, form);
-    num = (long long)va_arg(ap, void *);
-    printf("test : [%llx]\n", num);
-}
+//     va_start(ap, form);
+//     num = (long long)va_arg(ap, void *);
+//     printf("test : [%llx]\n", num);
+// }
 
 
 int main()
 {
-    int *n;
+    long long num;
+    int *temp;
 
-    test("hi", n);
-    printf("printf : [%p]\n", n);
+    temp = 0;
+
+    printf("printf : [% *.5i]", 4, 42);
+    // int *n;
+    // test("hi", n);
     // unsigned long long num = 12345;
     // char *str = "0123456789";
 
