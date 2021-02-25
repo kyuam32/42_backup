@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 16:05:07 by namkyu            #+#    #+#             */
-/*   Updated: 2021/02/23 17:38:37 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/02/25 11:12:58 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	reset_flist(t_format_list *f_list)
 	f_list->precision = -1;
 	f_list->strlen = 0;
 	f_list->sign = 0;
-	f_list->base = NULL;
+	f_list->base = TYPE_STRING;
 }
 
-int	ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	t_format_list	*f_list;
 	va_list			ap;
@@ -44,7 +44,7 @@ int	ft_printf(const char *format, ...)
 			ret++;
 		}
 		else
-			format += ft_printf_parsing_A(format + 1, f_list, &ap, &ret);
+			format += ft_printf_parsing_1(format + 1, f_list, &ap, &ret);
 		format++;
 	}
 	free(f_list);

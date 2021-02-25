@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 15:11:19 by namkyu            #+#    #+#             */
-/*   Updated: 2021/02/23 18:58:54 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/02/25 11:44:28 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,41 +31,35 @@ void	print_str(t_format_list *f_list, const char *str)
 	}
 }
 
-int	print_precision(t_format_list *f_list)
+int		print_precision(t_format_list *f_list)
 {
 	int	i;
 
 	i = 0;
-	if (f_list->base == NULL && f_list->strlen != 0)
+	if (f_list->base == TYPE_STRING && f_list->strlen != 0 &&\
+			f_list->precision != -1 && f_list->width > f_list->strlen)
 	{
-		if (f_list->precision != -1 && f_list->width > f_list->strlen)
+		while (i < f_list->precision - f_list->strlen)
 		{
-			while (i < f_list->precision - f_list->strlen)
-			{
-				write(1, " ", 1);
-				i++;
-			}
-		}
-	}
-	else
-	{
-		if (f_list->sign < 0)
-		{
-			if (f_list->precision != -1 || f_list->zero_symbol != '0')
-				write(1, "-", 1);
-		}
-		if (f_list->precision == -1)
-			return (i);
-		while (f_list->base != NULL && i < f_list->precision - f_list->strlen)
-		{
-			write(1, "0", 1);
+			write(1, " ", 1);
 			i++;
 		}
+	}
+	if (f_list->sign < 0 &&\
+			(f_list->precision != -1 || f_list->zero_symbol != '0'))
+		write(1, "-", 1);
+	if (f_list->precision == -1)
+		return (i);
+	while (f_list->base != TYPE_STRING &&\
+			i < f_list->precision - f_list->strlen)
+	{
+		write(1, "0", 1);
+		i++;
 	}
 	return (i);
 }
 
-int	print_width(t_format_list *f_list)
+int		print_width(t_format_list *f_list)
 {
 	int	i;
 	int	print_len;
@@ -84,7 +78,7 @@ int	print_width(t_format_list *f_list)
 	while (i < print_len)
 	{
 		if (f_list->zero_symbol == '0' && \
-f_list->precision == -1 && f_list->base != NULL)
+				f_list->precision == -1 && f_list->base != TYPE_STRING)
 			write(1, "0", 1);
 		else
 			write(1, " ", 1);
@@ -93,7 +87,7 @@ f_list->precision == -1 && f_list->base != NULL)
 	return (i);
 }
 
-int	init_num_case(t_format_list *f_list, unsigned long long num)
+int		init_num_case(t_format_list *f_list, unsigned long long num)
 {
 	int	printed_char_len;
 

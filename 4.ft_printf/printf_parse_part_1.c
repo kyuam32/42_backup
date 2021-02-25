@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_parse_part_A.c                              :+:      :+:    :+:   */
+/*   printf_parse_part_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:45:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/02/23 18:44:53 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/02/25 11:49:10 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	precision_parse(const char *format, t_format_list *f_list, va_list *ap)
 	return (i);
 }
 
-int	ft_printf_parsing_A(const char *format,
+int	ft_printf_parsing_1(const char *format,
 						t_format_list *f_list,
 						va_list *ap,
 						int *ret)
@@ -92,11 +92,11 @@ int	ft_printf_parsing_A(const char *format,
 		i += width_parse(&format[i], f_list, ap);
 	if (format[i] == '.')
 		i += precision_parse(&format[i], f_list, ap);
-	*ret += ft_printf_parsing_B(&format[i], f_list, ap);
+	*ret += ft_printf_parsing_2(&format[i], f_list, ap);
 	return (i + 1);
 }
 
-int	ft_printf_parsing_B(const char *format, t_format_list *f_list, va_list *ap)
+int	ft_printf_parsing_2(const char *format, t_format_list *f_list, va_list *ap)
 {
 	int		printed_char_len;
 

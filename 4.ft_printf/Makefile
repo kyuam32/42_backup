@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/05 17:16:58 by namkyu            #+#    #+#              #
-#    Updated: 2021/02/23 15:17:25 by namkyu           ###   ########.fr        #
+#    Updated: 2021/02/25 12:38:37 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ AR = ar
 AFLAGS = rcs
 
 FILES = ft_printf\
-		printf_parse_part_A\
-		printf_parse_part_B\
+		printf_parse_part_1\
+		printf_parse_part_2\
 		printf_data_utils\
 		printf_display_utils
 LIB_DIR = ./libft
@@ -49,4 +49,4 @@ fclean:
 
 re: fclean all
 
-.PHONY : all clean fclean re me meclean
+.PHONY : all clean fclean re

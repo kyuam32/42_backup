@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 16:06:43 by namkyu            #+#    #+#             */
-/*   Updated: 2021/02/23 17:35:06 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/02/25 11:12:45 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # define RIGHT_ALIGN 1
 # define LEFT_ALIGN -1
+# define TYPE_STRING 0
 
 typedef struct s_format_list
 {
@@ -33,16 +34,16 @@ typedef struct s_format_list
 	int		sign;
 }	t_format_list;
 
-/***** Parsing format part A (flag, width, precision) *****/
+/***** Parsing format part 1 (flag, width, precision) *****/
 int		flag_parse(const char *format, t_format_list *f_list);
 int		width_parse(const char *format, t_format_list *f_list, va_list *ap);
 int		precision_parse(const char *format, t_format_list *f_list, va_list *ap);
-int		ft_printf_parsing_A(const char *format, \
+int		ft_printf_parsing_1(const char *format, \
 							t_format_list *f_list, va_list *ap, int *ret);
-int		ft_printf_parsing_B(const char *format, \
+int		ft_printf_parsing_2(const char *format, \
 							t_format_list *f_list, va_list *ap);
 
-/***** Parsing format part B (conversion) ******/
+/***** Parsing format part 2 (conversion) ******/
 int		case_integer(t_format_list *f_list, va_list *ap);
 int		case_undsigned_int(const char *format, \
 							t_format_list *f_list, va_list *ap);
