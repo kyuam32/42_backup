@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 16:05:07 by namkyu            #+#    #+#             */
-/*   Updated: 2021/02/25 11:12:58 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/01 15:47:49 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ int		ft_printf(const char *format, ...)
 
 	ret = 0;
 	va_start(ap, format);
-	f_list = (t_format_list *)malloc(sizeof(t_format_list));
-	if (f_list == NULL)
-		return (-1);
 	reset_flist(f_list);
 	while (*format)
 	{
@@ -47,7 +44,6 @@ int		ft_printf(const char *format, ...)
 			format += ft_printf_parsing_1(format + 1, f_list, &ap, &ret);
 		format++;
 	}
-	free(f_list);
 	va_end(ap);
 	return (ret);
 }
