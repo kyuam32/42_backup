@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/05 18:55:51 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/16 21:52:27 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <string.h>
 #include "new_minilbx/mlx.h"
 #include "3.GNL/get_next_line.h"
 #include "1.libft/libft.h"
@@ -76,6 +78,7 @@ typedef struct s_data
 	t_img		img;
 	t_player	player;
 	t_texture	texture;
+	char		**map;
 	int			resolution_width;
 	int			resolution_height;
 	int			crash_report;
@@ -90,7 +93,7 @@ void cub_data_trim(t_data *data);
 
 
 void	map_parse();
-int		key_press(int keycode, t_player *player);
+int		key_press(int keycode, t_data *data);
 void	player_allocate(t_player *palyer);
 
 #endif

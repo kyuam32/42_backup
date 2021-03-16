@@ -8,8 +8,8 @@ int main()
 		void *win;
 		void *img;
 
-		int		img_width;
-		int 	img_height;
+		int		img_width = 250;
+		int 	img_height = 250;
 
 		mlx = mlx_init();
 		win = mlx_new_window(mlx, 500, 500, "my_mlx");

@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 16:09:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/09 16:19:03 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/16 20:55:01 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void rgb_parse(char *str, int *object, t_data *data)
 void resolution_parse(char *str, t_data *data)
 {
 	int temp;
+	int cur_DP_width;
+	int cur_DP_height;
+
 
 	while(!(ft_isdigit(*str)))
 		str++;
@@ -57,7 +60,11 @@ void resolution_parse(char *str, t_data *data)
 	if ((temp = ft_atoi(str)) <= 0)
 		data->crash_report = CUB_DATA_CORRUPTED;
 	data->resolution_height = temp;
-
+	mlx_get_screen_size(data->system.mlx, &cur_DP_width, &cur_DP_height);
+	if (data->resolution_width > cur_DP_width)
+		data->resolution_width = cur_DP_width;
+	if (data->resolution_height > cur_DP_height)
+		data->resolution_height = cur_DP_height;
 	printf("[res 0]%d\n", data->resolution_width);
 	printf("[res 1]%d\n", data->resolution_height);
 }

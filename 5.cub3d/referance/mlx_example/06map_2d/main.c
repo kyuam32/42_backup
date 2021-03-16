@@ -9,7 +9,7 @@
 
 #define KEY_ESC			53
 
-# define TILE_SIZE 32
+# define TILE_SIZE 44
 # define ROWS 11
 # define COLS 15
 # define WIDTH COLS * TILE_SIZE
