@@ -9,7 +9,7 @@
 
 #define KEY_ESC			53
 
-# define TILE_SIZE 44
+# define TILE_SIZE 32
 # define ROWS 11
 # define COLS 15
 # define WIDTH COLS * TILE_SIZE
@@ -64,7 +64,7 @@ void 	draw_lines(t_game *game)
 	i = 0;
 	while (i < COLS)
 	{
-		draw_line(game, i * TILE_SIZE, 0, i * TILE_SIZE, HEIGHT);
+		draw_line(game, i * (TILE_SIZE - 5), 0, i * (TILE_SIZE - 9), HEIGHT);
 		i++;
 	}
 	draw_line(game, COLS * TILE_SIZE - 1, 0, COLS * TILE_SIZE - 1, HEIGHT);

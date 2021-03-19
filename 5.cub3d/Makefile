@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 18:59:19 by namkyu            #+#    #+#              #
-#    Updated: 2021/03/16 19:50:24 by namkyu           ###   ########.fr        #
+#    Updated: 2021/03/19 15:57:18 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,10 @@ LIBFT = libft.a
 
 NAME = cub3d
 FILE = main \
+		ray_cast \
+		draw_pixcel \
+		mini_map \
+		graphic_display \
 		cub_data_extract \
 		3.GNL/get_next_line \
 		3.GNL/get_next_line_utils \
