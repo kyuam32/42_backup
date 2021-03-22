@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 16:57:32 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 23:05:27 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_vector
 {
 	double x;
 	double y;
-}				t_vector;
+} t_vector;
 
 typedef struct s_img
 {
@@ -78,9 +78,13 @@ typedef struct s_player
 typedef struct s_texture
 {
 	char *NO_path;
+	t_img NO_img;
 	char *SO_path;
+	t_img SO_img;
 	char *WE_path;
+	t_img WE_img;
 	char *EA_path;
+	t_img EA_img;
 	char *Sprite_path;
 	int floor;
 	int ceiling;
@@ -103,10 +107,6 @@ typedef struct s_draw
 {
 	t_vector start;
 	t_vector end;
-	int x_s;
-	int x_e;
-	int y_s;
-	int y_e;
 	int color;
 	int tile;
 	int side;
@@ -149,17 +149,18 @@ void texture_path_parse(char *str, char *path, t_data *data);
 /*
 // BASIC DRAWING TOOL (LINE)
 */
-void drawVLine(t_data *data, int y_start, int y_end, int x_start);
-void drawHLine(t_data *data, int x_start, int x_end, int y_start);
+
 void draw_line(t_data *data);
 void draw_ray(t_data *data);
+void draw_3d(t_data *data);
 void draw_rectangle(t_data *data, int x, int y, int color);
+void draw_texture(t_data *data);
 
 /*
 // RAYCAST
 */
 
-void ray_cast(t_data *data,void (*draw_target)(t_data *));
+void ray_cast(t_data *data, void (*draw_target)(t_data *));
 void ray_distance(t_data *data, double x_dir, double y_dir);
 void ray_initalize(t_data *data);
 
@@ -171,11 +172,14 @@ void m_map_grid(t_data *data);
 void m_map_wall(t_data *data);
 void m_map_player(t_data *data);
 
+
+
 /*
-// DISPLAY
+// UTILS
 */
 
-void draw_graphic(t_data *data);
+void v_put(t_vector *vec, int x_input, int y_input);
+
 
 /*
 // MAIN

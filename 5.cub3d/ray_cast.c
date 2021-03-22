@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:42:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 16:23:53 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 21:38:21 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void ray_distance(t_data *data, double x_dir, double y_dir)
 		if ((data->draw.tile = data->map.map[y_map][x_map]) > 0)
 		{
 			hit = 1;
+			// draw_rectangle(data, x_map, y_map, 0x00FFFF);
 			data->cam.dist = ray_dist;
 		}
 	}
@@ -77,6 +78,8 @@ void ray_cast(t_data *data,void (*draw_target)(t_data *))
 	double cur_dir;
 
 	cur_dir = data->cam.FOV / 2 * -1;
+	data->cam.curr_precision = 0;
+
 	while (cur_dir < data->cam.FOV / 2)
 	{
 		data->cam.dir.x = data->player.dir.x * cos(cur_dir) - data->player.dir.y * sin(cur_dir);
@@ -92,11 +95,11 @@ void ray_initalize(t_data *data)
 {
 	data->cam.FOV = DEG_TO_RAD(60);
 	data->cam.FOV_precision = data->resolution_width / 5;
-	data->cam.curr_precision = 0;
 
-	ray_cast(data, draw_graphic);
+	ray_cast(data, draw_3d);
 	m_map_wall(data);
 	ray_cast(data, draw_ray);
 	m_map_grid(data);
 	m_map_player(data);
+	draw_texture(data);
 }

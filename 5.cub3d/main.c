@@ -6,12 +6,33 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 16:23:52 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 21:37:52 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void texture_allocate(t_data *data)
+{
+	t_texture *tex;
+	int width;
+	int height;
+
+	width = 64;
+	height = 64;
+	tex = &data->texture;
+	tex->NO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, "./textures/north.xpm", &width, &height);
+	tex->NO_img.data = (int *)mlx_get_data_addr(tex->NO_img.ptr, &tex->NO_img.bpp, &tex->NO_img.size_l, &tex->NO_img.endian);
+
+	// tex->SO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, tex->SO_path, &width, &height);
+	// tex->SO_img.data = (int *)mlx_get_data_addr(tex->SO_img.ptr, &tex->SO_img.bpp, &tex->SO_img.size_l, &tex->SO_img.endian);
+
+	// tex->WE_img.ptr = mlx_xpm_file_to_image(data->system.mlx, tex->WE_path, &width, &height);
+	// tex->WE_img.data = (int *)mlx_get_data_addr(tex->WE_img.ptr, &tex->WE_img.bpp, &tex->WE_img.size_l, &tex->WE_img.endian);
+
+	// tex->EA_img.ptr = mlx_xpm_file_to_image(data->system.mlx, tex->EA_path, &width, &height);
+	// tex->EA_img.data = (int *)mlx_get_data_addr(tex->EA_img.ptr, &tex->EA_img.bpp, &tex->EA_img.size_l, &tex->EA_img.endian);
+}
 void player_allocate(t_data *data)
 {
 
@@ -96,7 +117,6 @@ int main_loop(t_data *data)
 {
 
 	ray_initalize(data);
-
 	mlx_put_image_to_window(data->system.mlx, data->system.win, data->img.ptr, 0, 0);
 	return (0);
 }
@@ -114,11 +134,13 @@ int main()
 	data.img.ptr = mlx_new_image(data.system.mlx, data.resolution_width, data.resolution_height);
 	data.img.data = (int *)mlx_get_data_addr(data.img.ptr, &data.img.bpp, &data.img.size_l, &data.img.endian);
 
+	texture_allocate(&data);
 	player_allocate(&data);
 
-	printf("%d  :  %d\n", data.map.w_scale, data.map.h_scale);
 	mlx_hook(data.system.win, X_EVENT_KEY_PRESS, 0, &key_press, &data);
+
 	mlx_loop_hook(data.system.mlx, &main_loop, &data);
+	mlx_put_image_to_window(data.system.mlx, data.system.win, data.img.ptr, 0, 0);
 	mlx_loop(data.system.mlx);
 }
 
