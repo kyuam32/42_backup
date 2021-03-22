@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:52:33 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/19 18:22:12 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:06:47 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void draw_graphic(t_data *data)
 	t_draw *draw = &data->draw;
 
 	ray_no = data->cam.curr_precision;
-	distance = (data->player.x_dir * data->cam.x_dir + data->player.y_dir * data->cam.y_dir) * data->cam.dist;
+	distance = (data->player.dir.x * data->cam.dir.x + data->player.dir.y * data->cam.dir.y) * data->cam.dist;
 
 	if (distance < 1)
-		img_height = (int)data->resolution_height / 2 / 2;
+		img_height = (int)data->resolution_height / 2;
 	else
-		img_height = (int)(data->resolution_height / distance / 2 / 2);
-	height_mid = (int)(data->resolution_height / 2 / 2);
+		img_height = (int)(data->resolution_height / distance / 2);
+	height_mid = (int)(data->resolution_height / 2);
 	ray_width = (int)(data->resolution_width / data->cam.FOV_precision);
 	while (i < ray_width)
 	{

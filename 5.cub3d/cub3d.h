@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/19 18:22:10 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:21:30 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@
 #define PI 3.14159265359
 #define DEG_TO_RAD(x) (x * PI / 180)
 
+typedef struct s_vector
+{
+	double x;
+	double y;
+}				t_vector;
+
 typedef struct s_img
 {
 	void *ptr;
@@ -63,12 +69,8 @@ typedef struct s_system
 
 typedef struct s_player
 {
-	double y_axis;
-	double x_axis;
-	double y_dir;
-	double x_dir;
-	double y_plane;
-	double x_plane;
+	t_vector axis;
+	t_vector dir;
 	double mov_speed;
 	double rot_speed;
 } t_player;
@@ -112,11 +114,10 @@ typedef struct s_draw
 
 typedef struct s_cam
 {
+	t_vector dir;
 	double FOV;
 	int FOV_precision;
 	int curr_precision;
-	double x_dir;
-	double y_dir;
 	double dist;
 } t_cam;
 
@@ -126,7 +127,7 @@ typedef struct s_data
 	t_img img;
 	t_player player;
 	t_texture texture;
-	t_minimap mini_map;
+	t_minimap map;
 	t_cam cam;
 	t_draw draw;
 	int cub_size;
@@ -156,7 +157,7 @@ void draw_line(t_data *data);
 // RAYCAST
 */
 
-double line_distance(t_data *data, double x_dir, double y_dir);
+double ray_distance(t_data *data, double x_dir, double y_dir);
 void ray_casting(t_data *data);
 
 /*

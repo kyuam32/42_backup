@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/19 18:39:43 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:27:29 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,23 @@
 
 void player_allocate(t_data *data)
 {
-	data->player.x_axis = 4.5;
-	data->player.y_axis = 5.5;
+
+	data->map.row = 11;
+	data->map.col = 15;
+	data->map.width = data->resolution_width / 2;
+	data->map.height = data->resolution_height / 2;
+	data->map.cub_width = data->map.width / data->map.col;
+	data->map.cub_height = data->map.height / data->map.row;
+
+	data->player.axis.x = 4.5;
+	data->player.axis.y = 5.5;
 	data->player.mov_speed = 0.3;
 	data->player.rot_speed = PI / 30;
-	data->player.x_dir = 0;
-	data->player.y_dir = 1;
-	data->mini_map.w_scale = 1/2;
-	data->mini_map.h_scale = 1/2;
-	data->mini_map.h_offset = data->resolution_height * (1 - data->mini_map.h_scale);
+	data->player.dir.x = 0;
+	data->player.dir.y = 1;
+	data->map.w_scale = 1/2;
+	data->map.h_scale = 1/2;
+	data->map.h_offset = data->resolution_height * (1 - data->map.h_scale);
 }
 
 int key_press(int keycode, t_data *data)
@@ -34,35 +42,35 @@ int key_press(int keycode, t_data *data)
 	player = &data->player;
 	if (keycode == KEY_W)
 	{
-		if (!(x = data->mini_map.map[(int)(player->y_axis)][(int)(player->x_axis + player->x_dir * player->mov_speed)]))
-			player->x_axis += player->x_dir * player->mov_speed;
-		if (!(y = data->mini_map.map[(int)(player->y_axis + player->y_dir * player->mov_speed)][(int)(player->x_axis)]))
-			player->y_axis += player->y_dir * player->mov_speed;
+		if (!(x = data->map.map[(int)(player->axis.y)][(int)(player->axis.x + player->dir.x * player->mov_speed)]))
+			player->axis.x += player->dir.x * player->mov_speed;
+		if (!(y = data->map.map[(int)(player->axis.y + player->dir.y * player->mov_speed)][(int)(player->axis.x)]))
+			player->axis.y += player->dir.y * player->mov_speed;
 	}
 	else if (keycode == KEY_S)
 	{
-		if (!(x = data->mini_map.map[(int)(player->y_axis)][(int)(player->x_axis - player->x_dir * player->mov_speed)]))
-			player->x_axis -= player->x_dir * player->mov_speed;
-		if (!(y = data->mini_map.map[(int)(player->y_axis - player->y_dir * player->mov_speed)][(int)(player->x_axis)]))
-			player->y_axis -= player->y_dir * player->mov_speed;
+		if (!(x = data->map.map[(int)(player->axis.y)][(int)(player->axis.x - player->dir.x * player->mov_speed)]))
+			player->axis.x -= player->dir.x * player->mov_speed;
+		if (!(y = data->map.map[(int)(player->axis.y - player->dir.y * player->mov_speed)][(int)(player->axis.x)]))
+			player->axis.y -= player->dir.y * player->mov_speed;
 	}
 	else if (keycode == KEY_D)
 	{
-		double x_olddir = player->x_dir;
-		double y_olddir = player->y_dir;
-		player->x_dir = x_olddir * cos(player->rot_speed) - y_olddir * sin(player->rot_speed);
-		player->y_dir = x_olddir * sin(player->rot_speed) + y_olddir * cos(player->rot_speed);
+		double x_olddir = player->dir.x;
+		double y_olddir = player->dir.y;
+		player->dir.x = x_olddir * cos(player->rot_speed) - y_olddir * sin(player->rot_speed);
+		player->dir.y = x_olddir * sin(player->rot_speed) + y_olddir * cos(player->rot_speed);
 	}
 	else if (keycode == KEY_A)
 	{
-		double x_olddir = player->x_dir;
-		double y_olddir = player->y_dir;
-		player->x_dir = x_olddir * cos(-player->rot_speed) - y_olddir * sin(-player->rot_speed);
-		player->y_dir = x_olddir * sin(-player->rot_speed) + y_olddir * cos(-player->rot_speed);
+		double x_olddir = player->dir.x;
+		double y_olddir = player->dir.y;
+		player->dir.x = x_olddir * cos(-player->rot_speed) - y_olddir * sin(-player->rot_speed);
+		player->dir.y = x_olddir * sin(-player->rot_speed) + y_olddir * cos(-player->rot_speed);
 	}
 	else if (keycode == KEY_ESC)
 		exit(0);
-	// printf("x = [%f] y = [%f]\ndir_x = [%f] dir_y =[%f]\n ", player->x_axis, player->y_axis, player->x_dir, player->y_dir);
+	// printf("x = [%f] y = [%f]\ndir_x = [%f] dir_y =[%f]\n ", player->axis.x, player->axis.y, player->dir.x, player->dir.y);
 	return (0);
 }
 
@@ -80,14 +88,14 @@ void temp_map(t_data *data)
 		{1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-	memcpy(data->mini_map.map, map, sizeof(int) * 11 * 15);
+	memcpy(data->map.map, map, sizeof(int) * 11 * 15);
 }
 
 int main_loop(t_data *data)
 {
-	m_map_wall(data);
-	m_map_grid(data);
-	m_map_player(data);
+	// m_map_wall(data);
+	// m_map_grid(data);
+	// m_map_player(data);
 	ray_casting(data);
 	mlx_put_image_to_window(data->system.mlx, data->system.win, data->img.ptr, 0, 0);
 	return (0);
@@ -101,13 +109,6 @@ int main()
 
 	cub_data_trim(&data);
 	temp_map(&data);
-
-	data.mini_map.row = 11;
-	data.mini_map.col = 15;
-	data.mini_map.width = data.resolution_width / 2;
-	data.mini_map.height = data.resolution_height / 2;
-	data.mini_map.cub_width = data.mini_map.width / data.mini_map.col;
-	data.mini_map.cub_height = data.mini_map.height / data.mini_map.row;
 
 	data.system.win = mlx_new_window(data.system.mlx, data.resolution_width, data.resolution_height, "Namkyu's test");
 
