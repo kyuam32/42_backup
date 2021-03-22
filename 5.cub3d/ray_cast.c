@@ -6,13 +6,13 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:42:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 14:41:54 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:10:20 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double ray_distance(t_data *data, double x_dir, double y_dir)
+void ray_distance(t_data *data, double x_dir, double y_dir)
 {
 	t_player *player = &data->player;
 	t_vector delta;
@@ -70,63 +70,34 @@ double ray_distance(t_data *data, double x_dir, double y_dir)
 			data->cam.dist = ray_dist;
 		}
 	}
-	return (ray_dist);
 }
 
-// void ray_radius(t_data *data)
-// {
-// 	t_cam *cam = &data->cam;
-// 	t_draw *draw = &data->draw;
+void ray_init(t_data *data,void (*draw_target)(t_data *))
+{
+	double cur_dir;
 
-// 	double cur_dir;
-
-// 	while (cur_dir < cam->FOV / 2)
-// 	{
-// 		cam->dir.x = data->player.dir.x * cos(cur_dir) - data->player.dir.y * sin(cur_dir);
-// 		cam->dir.y = data->player.dir.x * sin(cur_dir) + data->player.dir.y * cos(cur_dir);
-// 		ray_distance(data, cam->dir.x, cam->dir.y);
-// 		draw_graphic(data);
-// 		// draw_line_minimap(data, data->player.axis.x, data->player.axis.y,
-// 		// 				  data->player.axis.x + cam->dist * cam->dir.x,
-// 		// 				  data->player.axis.y + cam->dist * cam->dir.y);
-// 		cam->curr_precision++;
-// 		cur_dir += cam->FOV / cam->FOV_precision;
-// 	}
-// }
+	cur_dir = data->cam.FOV / 2 * -1;
+	while (cur_dir < data->cam.FOV / 2)
+	{
+		data->cam.dir.x = data->player.dir.x * cos(cur_dir) - data->player.dir.y * sin(cur_dir);
+		data->cam.dir.y = data->player.dir.x * sin(cur_dir) + data->player.dir.y * cos(cur_dir);
+		ray_distance(data, data->cam.dir.x, data->cam.dir.y);
+		draw_target(data);
+		data->cam.curr_precision++;
+		cur_dir += data->cam.FOV / data->cam.FOV_precision;
+	}
+}
 
 void ray_casting(t_data *data)
 {
-	t_cam *cam = &data->cam;
-	t_draw *draw = &data->draw;
-	double cur_dir;
+	data->cam.FOV = DEG_TO_RAD(60);
+	data->cam.FOV_precision = data->resolution_width / 5;
+	data->cam.curr_precision = 0;
 
-	cam->FOV = DEG_TO_RAD(60);
-	cam->FOV_precision = data->resolution_width / 5;
-	cam->curr_precision = 0;
-	cur_dir = cam->FOV / 2 * -1;
+	ray_init(data, draw_graphic);
+	m_map_wall(data);
+	ray_init(data, draw_ray);
+	m_map_grid(data);
+	m_map_player(data);
 
-	while (cur_dir < cam->FOV / 2)
-	{
-		cam->dir.x = data->player.dir.x * cos(cur_dir) - data->player.dir.y * sin(cur_dir);
-		cam->dir.y = data->player.dir.x * sin(cur_dir) + data->player.dir.y * cos(cur_dir);
-		ray_distance(data, cam->dir.x, cam->dir.y);
-		draw_graphic(data);
-		// draw_line_minimap(data, data->player.axis.x, data->player.axis.y,
-		// 				  data->player.axis.x + cam->dist * cam->dir.x,
-		// 				  data->player.axis.y + cam->dist * cam->dir.y);
-		cam->curr_precision++;
-		cur_dir += cam->FOV / cam->FOV_precision;
-	}
-	cur_dir = cam->FOV / 2 * -1;
-		while (cur_dir < cam->FOV / 2)
-	{
-		cam->dir.x = data->player.dir.x * cos(cur_dir) - data->player.dir.y * sin(cur_dir);
-		cam->dir.y = data->player.dir.x * sin(cur_dir) + data->player.dir.y * cos(cur_dir);
-		ray_distance(data, cam->dir.x, cam->dir.y);
-		draw_line_minimap(data, data->player.axis.x, data->player.axis.y,
-						  data->player.axis.x + cam->dist * cam->dir.x,
-						  data->player.axis.y + cam->dist * cam->dir.y);
-		cam->curr_precision++;
-		cur_dir += cam->FOV / cam->FOV_precision;
-	}
 }

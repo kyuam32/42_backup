@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:41:44 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/19 18:22:11 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:20:00 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void drawVLine(t_data *data, int y_start, int y_end, int x_start)
 
 	while (y_start < y_end)
 	{
-		img->data[y_start * img->size_l / 4 + x_start] = data->texture.floor;
+		img->data[y_start * img->size_l / 4 + x_start] = 0x000000;
 		y_start++;
 	}
 }
@@ -29,8 +29,28 @@ void drawHLine(t_data *data, int x_start, int x_end, int y_start)
 
 	while (x_start < x_end)
 	{
-		img->data[y_start * img->size_l / 4 + x_start] = data->texture.floor;
+		img->data[y_start * img->size_l / 4 + x_start] = 0x000000;
 		x_start++;
+	}
+}
+
+void draw_rectangle(t_data *data, int x, int y, int color)
+{
+	int i;
+	int j;
+
+	x *= data->map.cub_width;
+	y = y * data->map.cub_height + data->map.h_offset;
+	i = 0;
+	while (i < data->map.cub_height)
+	{
+		j = 0;
+		while (j < data->map.cub_width)
+		{
+			data->img.data[(y + i) * (data->img.size_l / 4) + (j + x)] = color;
+			j++;
+		}
+		i++;
 	}
 }
 
@@ -62,4 +82,14 @@ void draw_line(t_data *data)
 		x_start += deltaX;
 		y_start += deltaY;
 	}
+}
+
+void draw_ray(t_data *data)
+{
+	data->draw.x_s = data->player.axis.x * data->map.cub_width;
+	data->draw.y_s = data->player.axis.y * data->map.cub_height + data->map.h_offset;
+	data->draw.x_e = (data->player.axis.x + data->cam.dist * data->cam.dir.x) * data->map.cub_width;
+	data->draw.y_e = (data->player.axis.y + data->cam.dist * data->cam.dir.y) * data->map.cub_height + data->map.h_offset;
+	data->draw.color = 0x00FFFF;
+	draw_line(data);
 }

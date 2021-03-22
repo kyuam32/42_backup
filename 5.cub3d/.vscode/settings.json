@@ -9,6 +9,9 @@
 		"cstring": "c",
 		"memory": "c",
 		"utility": "c",
-		"__node_handle": "c"
+		"__node_handle": "c",
+		"ios": "cpp",
+		"istream": "cpp",
+		"locale": "cpp"
 	}
 }

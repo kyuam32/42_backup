@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 14:27:29 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:20:35 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ void player_allocate(t_data *data)
 
 	data->map.row = 11;
 	data->map.col = 15;
-	data->map.width = data->resolution_width / 2;
-	data->map.height = data->resolution_height / 2;
-	data->map.cub_width = data->map.width / data->map.col;
-	data->map.cub_height = data->map.height / data->map.row;
+
+	data->map.w_scale = 4;
+	data->map.h_scale = 4;
+	data->map.h_offset = data->resolution_height / data->map.h_scale * (data->map.h_scale - 1);
+
+	data->map.cub_width = data->resolution_width / data->map.w_scale / data->map.col;
+	data->map.cub_height = data->resolution_height / data->map.h_scale / data->map.row;
 
 	data->player.axis.x = 4.5;
 	data->player.axis.y = 5.5;
@@ -28,9 +31,7 @@ void player_allocate(t_data *data)
 	data->player.rot_speed = PI / 30;
 	data->player.dir.x = 0;
 	data->player.dir.y = 1;
-	data->map.w_scale = 1/2;
-	data->map.h_scale = 1/2;
-	data->map.h_offset = data->resolution_height * (1 - data->map.h_scale);
+
 }
 
 int key_press(int keycode, t_data *data)
@@ -93,10 +94,9 @@ void temp_map(t_data *data)
 
 int main_loop(t_data *data)
 {
-	// m_map_wall(data);
-	// m_map_grid(data);
-	// m_map_player(data);
+
 	ray_casting(data);
+
 	mlx_put_image_to_window(data->system.mlx, data->system.win, data->img.ptr, 0, 0);
 	return (0);
 }
@@ -105,19 +105,18 @@ int main()
 {
 	t_data data;
 
-	data.system.mlx = mlx_init();
-
 	cub_data_trim(&data);
 	temp_map(&data);
 
+	data.system.mlx = mlx_init();
 	data.system.win = mlx_new_window(data.system.mlx, data.resolution_width, data.resolution_height, "Namkyu's test");
 
 	data.img.ptr = mlx_new_image(data.system.mlx, data.resolution_width, data.resolution_height);
 	data.img.data = (int *)mlx_get_data_addr(data.img.ptr, &data.img.bpp, &data.img.size_l, &data.img.endian);
 
 	player_allocate(&data);
-	// main_loop(&data);
 
+	printf("%d  :  %d\n", data.map.w_scale, data.map.h_scale);
 	mlx_hook(data.system.win, X_EVENT_KEY_PRESS, 0, &key_press, &data);
 	mlx_loop_hook(data.system.mlx, &main_loop, &data);
 	mlx_loop(data.system.mlx);

@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 14:21:30 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:17:09 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ typedef struct s_minimap
 	int cub_height;
 	int row;
 	int col;
-	int width;
-	int height;
 	int w_scale;
 	int h_scale;
 	int h_offset;
@@ -103,6 +101,8 @@ typedef struct s_minimap
 
 typedef struct s_draw
 {
+	t_vector head;
+	t_vector tail;
 	int x_s;
 	int x_e;
 	int y_s;
@@ -152,12 +152,14 @@ void texture_path_parse(char *str, char *path, t_data *data);
 void drawVLine(t_data *data, int y_start, int y_end, int x_start);
 void drawHLine(t_data *data, int x_start, int x_end, int y_start);
 void draw_line(t_data *data);
+void draw_ray(t_data *data);
+void draw_rectangle(t_data *data, int x, int y, int color);
 
 /*
 // RAYCAST
 */
 
-double ray_distance(t_data *data, double x_dir, double y_dir);
+void ray_distance(t_data *data, double x_dir, double y_dir);
 void ray_casting(t_data *data);
 
 /*
@@ -165,8 +167,6 @@ void ray_casting(t_data *data);
 */
 
 void m_map_grid(t_data *data);
-void draw_line_minimap(t_data *data, double x_start, double y_start, double x_end, double y_end);
-void draw_rectangle(t_data *data, int x, int y, int color);
 void m_map_wall(t_data *data);
 void m_map_player(t_data *data);
 
