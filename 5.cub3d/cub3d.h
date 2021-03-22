@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 16:17:09 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:57:32 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ typedef struct s_minimap
 
 typedef struct s_draw
 {
-	t_vector head;
-	t_vector tail;
+	t_vector start;
+	t_vector end;
 	int x_s;
 	int x_e;
 	int y_s;
@@ -159,8 +159,9 @@ void draw_rectangle(t_data *data, int x, int y, int color);
 // RAYCAST
 */
 
+void ray_cast(t_data *data,void (*draw_target)(t_data *));
 void ray_distance(t_data *data, double x_dir, double y_dir);
-void ray_casting(t_data *data);
+void ray_initalize(t_data *data);
 
 /*
 // CREATE MINI_MAP

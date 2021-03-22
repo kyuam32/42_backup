@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:38:54 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 16:19:05 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:54:09 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,27 @@ void m_map_grid(t_data *data)
 	int j;
 
 	i = 0;
-	while (i < map->col)
+	while (i <= map->col)
 	{
-		drawVLine(data, map->h_offset, map->h_offset + map->row * map->cub_height, i * map->cub_width);
+		data->draw.x_s = i * map->cub_width;
+		data->draw.y_s = map->h_offset;
+		data->draw.x_e = i * map->cub_width;
+		data->draw.y_e = map->h_offset + map->row * map->cub_height;
+		data->draw.color = 0x000000;
+		draw_line(data);
 		i++;
 	}
-	drawVLine(data, map->h_offset, map->h_offset + map->row * map->cub_height, i * map->cub_width - 1);
-	j = 0;
-	while (j < map->row)
+	i = 0;
+	while (i <= map->row)
 	{
-		drawHLine(data, 0, map->col * map->cub_width, map->h_offset + j * map->cub_height);
-		j++;
+		data->draw.x_s = 0;
+		data->draw.y_s = map->h_offset + i * map->cub_height;
+		data->draw.x_e = map->col * map->cub_width;
+		data->draw.y_e = map->h_offset + i * map->cub_height;
+		data->draw.color = 0x000000;
+		draw_line(data);
+		i++;
 	}
-	drawHLine(data, 0, map->col * map->cub_width, map->h_offset + j * map->cub_height - 1);
 }
 
 void m_map_wall(t_data *data)

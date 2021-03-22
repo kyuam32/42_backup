@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 16:20:35 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:23:52 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void temp_map(t_data *data)
 int main_loop(t_data *data)
 {
 
-	ray_casting(data);
+	ray_initalize(data);
 
 	mlx_put_image_to_window(data->system.mlx, data->system.win, data->img.ptr, 0, 0);
 	return (0);
