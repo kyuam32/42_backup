@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:42:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 21:38:21 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/23 15:17:01 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,11 @@ void ray_cast(t_data *data,void (*draw_target)(t_data *))
 void ray_initalize(t_data *data)
 {
 	data->cam.FOV = DEG_TO_RAD(60);
-	data->cam.FOV_precision = data->resolution_width / 5;
+	data->cam.FOV_precision = data->resolution_width / 2;
 
 	ray_cast(data, draw_3d);
 	m_map_wall(data);
 	ray_cast(data, draw_ray);
 	m_map_grid(data);
 	m_map_player(data);
-	draw_texture(data);
 }

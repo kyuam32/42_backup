@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 23:05:27 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/23 15:17:10 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@
 #define PI 3.14159265359
 #define DEG_TO_RAD(x) (x * PI / 180)
 
+#define EA 0
+#define WE 1
+#define SO 2
+#define NO 3
+#define SP 4
+
+
 typedef struct s_vector
 {
 	double x;
@@ -77,15 +84,11 @@ typedef struct s_player
 
 typedef struct s_texture
 {
-	char *NO_path;
+	char *path[5];
 	t_img NO_img;
-	char *SO_path;
 	t_img SO_img;
-	char *WE_path;
 	t_img WE_img;
-	char *EA_path;
 	t_img EA_img;
-	char *Sprite_path;
 	int floor;
 	int ceiling;
 } t_texture;
@@ -144,8 +147,7 @@ void rgb_parse(char *str, int *object, t_data *data);
 void resolution_parse(char *str, t_data *data);
 void cub_data_sort(char *line, t_data *data);
 void cub_data_trim(t_data *data);
-void texture_path_parse(char *str, char *path, t_data *data);
-
+void texture_path_parse(char *str, int type, t_data *data);
 /*
 // BASIC DRAWING TOOL (LINE)
 */
@@ -154,7 +156,7 @@ void draw_line(t_data *data);
 void draw_ray(t_data *data);
 void draw_3d(t_data *data);
 void draw_rectangle(t_data *data, int x, int y, int color);
-void draw_texture(t_data *data);
+void draw_texture(t_data *data, int x, int y, int height);
 
 /*
 // RAYCAST

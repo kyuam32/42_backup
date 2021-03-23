@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 21:37:52 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/23 11:35:02 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,19 @@ void texture_allocate(t_data *data)
 	width = 64;
 	height = 64;
 	tex = &data->texture;
-	tex->NO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, "./textures/north.xpm", &width, &height);
+	tex->EA_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[EA], &width, &height);
+	tex->EA_img.data = (int *)mlx_get_data_addr(tex->EA_img.ptr, &tex->EA_img.bpp, &tex->EA_img.size_l, &tex->EA_img.endian);
+
+	tex->WE_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[WE], &width, &height);
+	tex->WE_img.data = (int *)mlx_get_data_addr(tex->WE_img.ptr, &tex->WE_img.bpp, &tex->WE_img.size_l, &tex->WE_img.endian);
+
+	tex->SO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SO], &width, &height);
+	tex->SO_img.data = (int *)mlx_get_data_addr(tex->SO_img.ptr, &tex->SO_img.bpp, &tex->SO_img.size_l, &tex->SO_img.endian);
+	
+	tex->NO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[NO], &width, &height);
 	tex->NO_img.data = (int *)mlx_get_data_addr(tex->NO_img.ptr, &tex->NO_img.bpp, &tex->NO_img.size_l, &tex->NO_img.endian);
 
-	// tex->SO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, tex->SO_path, &width, &height);
-	// tex->SO_img.data = (int *)mlx_get_data_addr(tex->SO_img.ptr, &tex->SO_img.bpp, &tex->SO_img.size_l, &tex->SO_img.endian);
 
-	// tex->WE_img.ptr = mlx_xpm_file_to_image(data->system.mlx, tex->WE_path, &width, &height);
-	// tex->WE_img.data = (int *)mlx_get_data_addr(tex->WE_img.ptr, &tex->WE_img.bpp, &tex->WE_img.size_l, &tex->WE_img.endian);
-
-	// tex->EA_img.ptr = mlx_xpm_file_to_image(data->system.mlx, tex->EA_path, &width, &height);
-	// tex->EA_img.data = (int *)mlx_get_data_addr(tex->EA_img.ptr, &tex->EA_img.bpp, &tex->EA_img.size_l, &tex->EA_img.endian);
 }
 void player_allocate(t_data *data)
 {
@@ -50,8 +52,8 @@ void player_allocate(t_data *data)
 	data->player.axis.y = 5.5;
 	data->player.mov_speed = 0.3;
 	data->player.rot_speed = PI / 30;
-	data->player.dir.x = 0;
-	data->player.dir.y = 1;
+	data->player.dir.x = 1;
+	data->player.dir.y = 0;
 
 }
 
@@ -138,9 +140,7 @@ int main()
 	player_allocate(&data);
 
 	mlx_hook(data.system.win, X_EVENT_KEY_PRESS, 0, &key_press, &data);
-
 	mlx_loop_hook(data.system.mlx, &main_loop, &data);
-	mlx_put_image_to_window(data.system.mlx, data.system.win, data.img.ptr, 0, 0);
 	mlx_loop(data.system.mlx);
 }
 

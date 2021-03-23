@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:41:44 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/22 21:33:17 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/23 15:31:51 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,44 @@ void draw_line(t_data *data)
 	}
 }
 
-void draw_texture(t_data *data)
+void draw_texture(t_data *data, int x, int y, int height)
 {
+	t_img *img;
+	int wall_x;
+	double repeat;
 	int i;
 	int j;
 
-	i = 0;
-	while (i < 64)
+	img = &data->texture.EA_img;
+	if (data->draw.side == VIRTICAL_SIDE)
 	{
-		j = 0;
-		while (j < 64)
-		{
-			data->img.data[(int)i * (data->img.size_l / 4) + j] = \
-			 data->texture.NO_img.data[(int)i * (data->texture.NO_img.size_l / 4) + j];
-			j++;
-		}
+		img = (data->cam.dir.x < 0) ? &data->texture.EA_img : &data->texture.WE_img;
+		wall_x = ((data->cam.dist * data->cam.dir.y) - floor(data->cam.dist * data->cam.dir.y)) * 64;
+	}
+	else
+	{
+		img = (data->cam.dir.y < 0) ? &data->texture.SO_img : &data->texture.NO_img;
+		wall_x = ((data->cam.dist * data->cam.dir.x) - floor(data->cam.dist * data->cam.dir.x)) * 64;
+	}
+	i = 0;
+	while (i < height)
+	{
+		data->img.data[(int)(y + i) * data->img.size_l / 4 + x] = img->data[(int)(floor(64 / height * i)) * img->size_l / 4 + wall_x];
+		// printf("[%d] , [%d]\n", height, y + i);
 		i++;
 	}
+	// while (i < 64)
+	// {
+	// 	j = 0;
+	// 	while (j < 64)
+	// 	{
+	// 		data->img.data[i * data->img.size_l / 4 + j] = img->data[i * data->img.size_l / 4 + j];
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 }
+
 
 void draw_3d(t_data *data)
 {
@@ -100,16 +120,19 @@ void draw_3d(t_data *data)
 		v_put(&data->draw.end, i + (ray_width * ray_no), height_mid - img_height);
 		draw->color = data->texture.ceiling;
 		draw_line(data);
-		v_put(&data->draw.start, i + (ray_width * ray_no), height_mid - img_height);
-		v_put(&data->draw.end, i + (ray_width * ray_no), height_mid + img_height);
-		draw->color = draw->side == HORIZOTAL_SIDE ? 0x006400 : 0x008000;
-		draw_line(data);
+		draw_texture(data, i + (ray_width * ray_no), height_mid - img_height, img_height * 2);
+
+		// v_put(&data->draw.start, i + (ray_width * ray_no), height_mid - img_height);
+		// v_put(&data->draw.end, i + (ray_width * ray_no), height_mid + img_height);
+		// draw->color = draw->side == HORIZOTAL_SIDE ? 0xFF00FF : 0x008000;
+		// draw_line(data);
 		v_put(&data->draw.start, i + (ray_width * ray_no), height_mid + img_height);
 		v_put(&data->draw.end, i + (ray_width * ray_no), height_mid + height_mid);
 		draw->color = data->texture.floor;
 		draw_line(data);
 		i++;
 	}
+
 }
 
 void draw_ray(t_data *data)

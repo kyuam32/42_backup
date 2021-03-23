@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 16:09:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/16 20:55:01 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/23 11:26:22 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void resolution_parse(char *str, t_data *data)
 	printf("[res 1]%d\n", data->resolution_height);
 }
 
-void texture_path_parse(char *str, char *path, t_data *data)
+void texture_path_parse(char *str, int type, t_data *data)
 {
 	int i ;
 
@@ -81,10 +81,18 @@ void texture_path_parse(char *str, char *path, t_data *data)
 	if (ft_memcmp((str + (i - 4)), ".xpm", 4) != 0)
 		data->crash_report = CUB_DATA_CORRUPTED;
 	else
-		path = ft_strdup(str);
-
-
-	printf("[path]%s\n", path);
+	{
+		if (type == EA)
+			data->texture.path[EA] = ft_strdup(str);
+		else if (type == WE)
+			data->texture.path[WE] = ft_strdup(str);
+		else if (type == SO)
+			data->texture.path[SO] = ft_strdup(str);
+		else if (type == NO)
+			data->texture.path[NO] = ft_strdup(str);
+		else if (type == SP)
+			data->texture.path[SP] = ft_strdup(str);
+	}
 }
 
 void cub_data_sort(char *line, t_data *data)
@@ -92,16 +100,16 @@ void cub_data_sort(char *line, t_data *data)
 
 	if (line[0] == 'R' && line[1] == ' ')
 		resolution_parse(line, data);
-	else if (line[0] == 'N' && line[1] == 'O')
-		texture_path_parse(line + 2, data->texture.NO_path, data);
-	else if (line[0] == 'S' && line[1] == 'O')
-		texture_path_parse(line + 2, data->texture.SO_path, data);
-	else if (line[0] == 'W' && line[1] == 'E')
-		texture_path_parse(line + 2, data->texture.WE_path, data);
 	else if (line[0] == 'E' && line[1] == 'A')
-		texture_path_parse(line + 2, data->texture.EA_path, data);
+		texture_path_parse(line + 2, EA, data);
+	else if (line[0] == 'W' && line[1] == 'E')
+		texture_path_parse(line + 2, WE, data);
+	else if (line[0] == 'S' && line[1] == 'O')
+		texture_path_parse(line + 2, SO, data);
+	else if (line[0] == 'N' && line[1] == 'O')
+		texture_path_parse(line + 2, NO, data);
 	else if (line[0] == 'S' && line[1] == ' ')
-		texture_path_parse(line + 1, data->texture.Sprite_path, data);
+		texture_path_parse(line + 1, SP, data);
 	else if (line[0] == 'F' && line[1] == ' ')
 		rgb_parse(line + 1, &data->texture.floor, data);
 	else if (line[0] == 'C' && line[1] == ' ')
