@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 18:59:19 by namkyu            #+#    #+#              #
-#    Updated: 2021/03/22 19:37:25 by namkyu           ###   ########.fr        #
+#    Updated: 2021/03/26 17:33:02 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ FILE = main \
 		ray_cast \
 		draw_pixcel \
 		mini_map \
-		cub_data_extract \
+		data_parse \
+		map_parse \
+		map_dfs \
 		3.GNL/get_next_line \
 		3.GNL/get_next_line_utils \
 

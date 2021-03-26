@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_data_extract.c                                 :+:      :+:    :+:   */
+/*   data_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 16:09:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/23 11:26:22 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/26 17:21:21 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void rgb_parse(char *str, int *object, t_data *data)
 		if (*str == ',')
 			str++;
 		if ((temp = ft_atoi(str)) > 255 || temp < 0)
-			data->crash_report = CUB_DATA_CORRUPTED;
+			data->crash_report = CUB_DATA_CORRUPTED + 1;
 		else
 		{
 			*object += temp << bit;
@@ -35,9 +35,8 @@ void rgb_parse(char *str, int *object, t_data *data)
 		while (ft_isdigit(*str))
 			str++;
 	}
-	if (bit != 0)
-		data->crash_report = CUB_DATA_CORRUPTED;
-
+	if (bit != -8)
+		data->crash_report = CUB_DATA_CORRUPTED + 2;
 	printf("[FLOOR R]%i\n", *object);
 }
 
@@ -51,20 +50,24 @@ void resolution_parse(char *str, t_data *data)
 	while(!(ft_isdigit(*str)))
 		str++;
 		if ((temp = ft_atoi(str)) <= 0)
-			data->crash_report = CUB_DATA_CORRUPTED;
+			data->crash_report = CUB_DATA_CORRUPTED + 3;
 	data->resolution_width = temp;
 	while(ft_isdigit(*str))
 		str++;
 	while(!(ft_isdigit(*str)))
 		str++;
 	if ((temp = ft_atoi(str)) <= 0)
-		data->crash_report = CUB_DATA_CORRUPTED;
+		data->crash_report = CUB_DATA_CORRUPTED + 4;
 	data->resolution_height = temp;
 	mlx_get_screen_size(data->system.mlx, &cur_DP_width, &cur_DP_height);
 	if (data->resolution_width > cur_DP_width)
 		data->resolution_width = cur_DP_width;
+	else if (data->resolution_width < 150)
+		data->resolution_width = 150;
 	if (data->resolution_height > cur_DP_height)
 		data->resolution_height = cur_DP_height;
+	else if (data->resolution_height < 100)
+		data->resolution_height = 100;
 	printf("[res 0]%d\n", data->resolution_width);
 	printf("[res 1]%d\n", data->resolution_height);
 }
@@ -79,19 +82,19 @@ void texture_path_parse(char *str, int type, t_data *data)
 	while (str[i])
 		i++;
 	if (ft_memcmp((str + (i - 4)), ".xpm", 4) != 0)
-		data->crash_report = CUB_DATA_CORRUPTED;
+		data->crash_report = CUB_DATA_CORRUPTED + 5;
 	else
 	{
 		if (type == EA)
-			data->texture.path[EA] = ft_strdup(str);
+			data->texture.path[EA_ARR] = ft_strdup(str);
 		else if (type == WE)
-			data->texture.path[WE] = ft_strdup(str);
+			data->texture.path[WE_ARR] = ft_strdup(str);
 		else if (type == SO)
-			data->texture.path[SO] = ft_strdup(str);
+			data->texture.path[SO_ARR] = ft_strdup(str);
 		else if (type == NO)
-			data->texture.path[NO] = ft_strdup(str);
+			data->texture.path[NO_ARR] = ft_strdup(str);
 		else if (type == SP)
-			data->texture.path[SP] = ft_strdup(str);
+			data->texture.path[SP_ARR] = ft_strdup(str);
 	}
 }
 
@@ -114,18 +117,25 @@ void cub_data_sort(char *line, t_data *data)
 		rgb_parse(line + 1, &data->texture.floor, data);
 	else if (line[0] == 'C' && line[1] == ' ')
 		rgb_parse(line + 1, &data->texture.ceiling, data);
+	else if (line[0] == '1' || line[1] == ' ')
+		map_parse(line, data);
 }
-
 
 void cub_data_trim(t_data *data)
 {
 	int fd;
 	char *line;
+
+	data->map.map_str = NULL;
 	if ((fd = open("./map.cub", O_RDONLY)) < 0)
-		data->crash_report = CUB_DATA_CORRUPTED;
+		data->crash_report = CUB_DATA_CORRUPTED + 6;
 	while(get_next_line(fd, &line))
 	{
 		cub_data_sort(line, data);
 		free(line);
 	}
+	cub_data_sort(line, data);
+	free(line);
+
+	map_create(data);
 }

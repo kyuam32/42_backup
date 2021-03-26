@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/23 11:35:02 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/26 19:20:58 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,21 @@ void texture_allocate(t_data *data)
 	width = 64;
 	height = 64;
 	tex = &data->texture;
-	tex->EA_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[EA], &width, &height);
+	tex->EA_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[EA_ARR], &width, &height);
 	tex->EA_img.data = (int *)mlx_get_data_addr(tex->EA_img.ptr, &tex->EA_img.bpp, &tex->EA_img.size_l, &tex->EA_img.endian);
 
-	tex->WE_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[WE], &width, &height);
+	tex->WE_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[WE_ARR], &width, &height);
 	tex->WE_img.data = (int *)mlx_get_data_addr(tex->WE_img.ptr, &tex->WE_img.bpp, &tex->WE_img.size_l, &tex->WE_img.endian);
 
-	tex->SO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SO], &width, &height);
+	tex->SO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SO_ARR], &width, &height);
 	tex->SO_img.data = (int *)mlx_get_data_addr(tex->SO_img.ptr, &tex->SO_img.bpp, &tex->SO_img.size_l, &tex->SO_img.endian);
 	
-	tex->NO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[NO], &width, &height);
+	tex->NO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[NO_ARR], &width, &height);
 	tex->NO_img.data = (int *)mlx_get_data_addr(tex->NO_img.ptr, &tex->NO_img.bpp, &tex->NO_img.size_l, &tex->NO_img.endian);
-
-
 }
+
 void player_allocate(t_data *data)
 {
-
-	data->map.row = 11;
-	data->map.col = 15;
 
 	data->map.w_scale = 4;
 	data->map.h_scale = 4;
@@ -48,13 +44,8 @@ void player_allocate(t_data *data)
 	data->map.cub_width = data->resolution_width / data->map.w_scale / data->map.col;
 	data->map.cub_height = data->resolution_height / data->map.h_scale / data->map.row;
 
-	data->player.axis.x = 4.5;
-	data->player.axis.y = 5.5;
-	data->player.mov_speed = 0.3;
-	data->player.rot_speed = PI / 30;
-	data->player.dir.x = 1;
-	data->player.dir.y = 0;
-
+	data->player.mov_speed = 0.5;
+	data->player.rot_speed = PI / 20;
 }
 
 int key_press(int keycode, t_data *data)
@@ -66,16 +57,16 @@ int key_press(int keycode, t_data *data)
 	player = &data->player;
 	if (keycode == KEY_W)
 	{
-		if (!(x = data->map.map[(int)(player->axis.y)][(int)(player->axis.x + player->dir.x * player->mov_speed)]))
+		if (data->map.map_arr[(int)(player->axis.y)][(int)(player->axis.x + player->dir.x * player->mov_speed)] != '1')
 			player->axis.x += player->dir.x * player->mov_speed;
-		if (!(y = data->map.map[(int)(player->axis.y + player->dir.y * player->mov_speed)][(int)(player->axis.x)]))
+		if (data->map.map_arr[(int)(player->axis.y + player->dir.y * player->mov_speed)][(int)(player->axis.x)] != '1')
 			player->axis.y += player->dir.y * player->mov_speed;
 	}
 	else if (keycode == KEY_S)
 	{
-		if (!(x = data->map.map[(int)(player->axis.y)][(int)(player->axis.x - player->dir.x * player->mov_speed)]))
+		if (data->map.map_arr[(int)(player->axis.y)][(int)(player->axis.x - player->dir.x * player->mov_speed)] != '1')
 			player->axis.x -= player->dir.x * player->mov_speed;
-		if (!(y = data->map.map[(int)(player->axis.y - player->dir.y * player->mov_speed)][(int)(player->axis.x)]))
+		if (data->map.map_arr[(int)(player->axis.y - player->dir.y * player->mov_speed)][(int)(player->axis.x)] != '1')
 			player->axis.y -= player->dir.y * player->mov_speed;
 	}
 	else if (keycode == KEY_D)
@@ -94,41 +85,28 @@ int key_press(int keycode, t_data *data)
 	}
 	else if (keycode == KEY_ESC)
 		exit(0);
-	// printf("x = [%f] y = [%f]\ndir_x = [%f] dir_y =[%f]\n ", player->axis.x, player->axis.y, player->dir.x, player->dir.y);
+	printf("x = [%f] y = [%f]\ndir_x = [%f] dir_y =[%f]\n ", player->axis.x, player->axis.y, player->dir.x, player->dir.y);
 	return (0);
-}
-
-void temp_map(t_data *data)
-{
-	int map[11][15] = {
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
-		{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-		{1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-		{1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-	memcpy(data->map.map, map, sizeof(int) * 11 * 15);
 }
 
 int main_loop(t_data *data)
 {
-
+	if (data->crash_report)
+		printf("!!!!!!!![%d]crash reported!!!!!!!\n", data->crash_report);
 	ray_initalize(data);
+	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img.ptr);
 	mlx_put_image_to_window(data->system.mlx, data->system.win, data->img.ptr, 0, 0);
+	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, data->system.win);
 	return (0);
 }
 
 int main()
 {
 	t_data data;
+	data.crash_report = 0;
 
 	cub_data_trim(&data);
-	temp_map(&data);
+	map_dfs(&data);
 
 	data.system.mlx = mlx_init();
 	data.system.win = mlx_new_window(data.system.mlx, data.resolution_width, data.resolution_height, "Namkyu's test");
@@ -143,5 +121,3 @@ int main()
 	mlx_loop_hook(data.system.mlx, &main_loop, &data);
 	mlx_loop(data.system.mlx);
 }
-
-// mlx_sync()

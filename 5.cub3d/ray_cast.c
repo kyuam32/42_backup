@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:42:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/23 15:17:01 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/26 19:28:02 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,31 @@ void ray_distance(t_data *data, double x_dir, double y_dir)
 	double ray_dist;
 	int x_step;
 	int y_step;
-	int x_map = (int)player->axis.x;
-	int y_map = (int)player->axis.y;
+	int x_map = (int)(player->axis.x);
+	int y_map = (int)(player->axis.y);
 	int hit = 0;
 
-	delta.x = fabs(1 / x_dir);
-	delta.y = fabs(1 / y_dir);
-	if (x_dir >= 0)
+	delta.x = (y_dir == 0) ? 0 : ((x_dir == 0) ? 1 : fabs(1 / x_dir));
+    delta.y = (x_dir == 0) ? 0 : ((y_dir == 0) ? 1 : fabs(1 / y_dir));
+	if (x_dir > 0)
 	{
 		x_step = 1;
-		distance.x = fabs((ceil(player->axis.x) - player->axis.x) * delta.x);
+		distance.x = fabs((x_map + 1 - player->axis.x) * delta.x);
 	}
 	else
 	{
 		x_step = -1;
-		distance.x = fabs((player->axis.x - floor(player->axis.x)) * delta.x);
+		distance.x = fabs((player->axis.x - x_map) * delta.x);
 	}
-	if (y_dir >= 0)
+	if (y_dir > 0)
 	{
 		y_step = 1;
-		distance.y = fabs((ceil(player->axis.y) - player->axis.y) * delta.y);
+		distance.y = fabs((y_map + 1 - player->axis.y) * delta.y);
 	}
 	else
 	{
 		y_step = -1;
-		distance.y = fabs((player->axis.y - floor(player->axis.y)) * delta.y);
+		distance.y = fabs((player->axis.y - y_map) * delta.y);
 	}
 	while (hit == 0)
 	{
@@ -64,10 +64,10 @@ void ray_distance(t_data *data, double x_dir, double y_dir)
 			ray_dist = distance.x - delta.x;
 		else
 			ray_dist = distance.y - delta.y;
-		if ((data->draw.tile = data->map.map[y_map][x_map]) > 0)
+		if ((data->draw.tile = data->map.map_arr[y_map][x_map]) == '1')
 		{
 			hit = 1;
-			// draw_rectangle(data, x_map, y_map, 0x00FFFF);
+			draw_rectangle(data, x_map, y_map, 0x663300);
 			data->cam.dist = ray_dist;
 		}
 	}
@@ -93,8 +93,8 @@ void ray_cast(t_data *data,void (*draw_target)(t_data *))
 
 void ray_initalize(t_data *data)
 {
-	data->cam.FOV = DEG_TO_RAD(60);
-	data->cam.FOV_precision = data->resolution_width / 2;
+	data->cam.FOV = DEG_TO_RAD(45);
+	data->cam.FOV_precision = data->resolution_width;
 
 	ray_cast(data, draw_3d);
 	m_map_wall(data);

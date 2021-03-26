@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/23 15:17:10 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/26 17:58:52 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 #define KEY_D 2
 
 #define CUB_DATA_CORRUPTED 5000
+#define MAP_DATA_CORRUPTED 4000
 
 #define HORIZOTAL_SIDE 0
 #define VIRTICAL_SIDE 1
@@ -43,12 +44,17 @@
 #define PI 3.14159265359
 #define DEG_TO_RAD(x) (x * PI / 180)
 
-#define EA 0
-#define WE 1
-#define SO 2
-#define NO 3
-#define SP 4
+#define EA_ARR 0
+#define WE_ARR 1
+#define SO_ARR 2
+#define NO_ARR 3
+#define SP_ARR 4
 
+#define EA 21
+#define WE 39
+#define SO 35
+#define NO 30
+#define SP 2
 
 typedef struct s_vector
 {
@@ -95,7 +101,8 @@ typedef struct s_texture
 
 typedef struct s_minimap
 {
-	int map[11][15];
+	char **map_arr;
+	char *map_str;
 	int cub_width;
 	int cub_height;
 	int row;
@@ -174,13 +181,27 @@ void m_map_grid(t_data *data);
 void m_map_wall(t_data *data);
 void m_map_player(t_data *data);
 
+/*
+// CREATE MAP_STR
+*/
+void map_parse(char *line,t_data *data);
+void map_create(t_data *data);
+void map_allocate(t_data *data);
+void map_sizecheck(t_data *data);
 
+/*
+// DFS
+*/
+void map_dfs(t_data *data);
+int map_search_escape(t_data *data, int **is_visited, int x, int y);
 
 /*
 // UTILS
 */
 
 void v_put(t_vector *vec, int x_input, int y_input);
+int is_valid_char(char c);
+void player_dir_set(t_data *data, char c, int row, int col);
 
 
 /*

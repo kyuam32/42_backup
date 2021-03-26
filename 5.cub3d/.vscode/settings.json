@@ -16,6 +16,9 @@
 		"__functional_03": "cpp",
 		"cstdlib": "cpp",
 		"functional": "cpp",
-		"algorithm": "cpp"
+		"algorithm": "cpp",
+		"__hash_table": "cpp",
+		"type_traits": "cpp",
+		"version": "cpp"
 	}
 }
