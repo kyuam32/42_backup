@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:22:46 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/26 19:25:32 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/26 19:59:23 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ void map_allocate(t_data *data)
 	map->map_arr = (char **)malloc(sizeof(char *) * map->row + 1);
 	while (i < map->row)
 	{
-		map->map_arr[i] = (char *)malloc(sizeof(char) * map->col);
+		map->map_arr[i] = (char *)malloc(sizeof(char) * map->col + 1);
 		map->map_arr[i][map->col] = 0;
 		i++;
 	}
 	map->map_arr[i] = NULL;
-
 }
 
 void map_str_to_array(t_data *data)

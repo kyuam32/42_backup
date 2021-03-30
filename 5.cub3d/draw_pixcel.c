@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:41:44 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/26 18:44:07 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/30 16:46:54 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,44 @@ void draw_line(t_data *data)
 	}
 }
 
+void draw_sprite(t_data *data, int x, int y, int height)
+{
+	t_img *img;
+	int wall_x;
+	int i;
+	int order;
+	double deg;
+	double repeat;
+	double img_mid;
+
+	i = 0;
+	deg = DEG_TO_RAD(45);
+	img_mid = 120 / 2;
+	img = &data->texture.SP_img;
+	repeat = 1.0 * 120 / height;
+	order = (data->cam.dir.x * data->cam.dir.y) < 0 ? 1 : 0;
+
+	if (data->draw.side == VIRTICAL_SIDE)
+	{
+		if (order) // start 0
+			wall_x = 120 - ((data->player.axis.y + data->cam.sp_dist * data->cam.dir.y) - floor(data->player.axis.y + data->cam.sp_dist * data->cam.dir.y)) / cos(deg) / sqrt(2.0) * 120;
+		else // start mid
+			wall_x = ((data->player.axis.y + data->cam.sp_dist * data->cam.dir.y) - floor(data->player.axis.y + data->cam.sp_dist * data->cam.dir.y)) / cos(deg) / sqrt(2.0) * 120;
+	}
+	else
+	{
+		if (order) //start mid
+			wall_x = ((data->player.axis.x + data->cam.sp_dist * data->cam.dir.x) - floor(data->player.axis.x + data->cam.sp_dist * data->cam.dir.x)) / cos(deg) / sqrt(2.0) * 120;
+		else //start 0
+			wall_x = 120 - ((data->player.axis.x + data->cam.sp_dist * data->cam.dir.x) - floor(data->player.axis.x + data->cam.sp_dist * data->cam.dir.x)) / cos(deg) / sqrt(2.0) * 120;
+	}
+	while (i < height)
+	{
+		data->img.data[(int)(y + i) * data->img.size_l / 4 + x] = img->data[(int)(repeat * i) * img->size_l / 4 + wall_x];
+		i++;
+	}
+}
+
 void draw_texture(t_data *data, int x, int y, int height)
 {
 	t_img *img;
@@ -99,10 +137,40 @@ void draw_texture(t_data *data, int x, int y, int height)
 	}
 }
 
+void draw_sp(t_data *data)
+{
+	double dist_adj;
+	int img_height;
+	int height_mid;
+	int ray_width;
+	int ray_no;
+	int i;
+	t_draw *draw = &data->draw;
+
+	ray_no = data->cam.curr_precision;
+	dist_adj = data->cam.sp_dist;
+	i = 0;
+	if (dist_adj < 1)
+		img_height = data->resolution_height / 2;
+	else
+		img_height = data->resolution_height / dist_adj / 2;
+	height_mid = data->resolution_height / 2;
+	ray_width = data->resolution_width / data->cam.FOV_precision;
+	if (data->draw.tile == '2')
+	{
+		while (i < ray_width)
+		{
+			draw_sprite(data, i + (ray_width * ray_no), height_mid - img_height, img_height * 2);
+			i++;
+		}
+	}
+}
+
 void draw_3d(t_data *data)
 {
 	double dist_adj;
 	int img_height;
+	int sp_height;
 	int height_mid;
 	int ray_width;
 	int ray_no;
@@ -111,13 +179,14 @@ void draw_3d(t_data *data)
 
 	ray_no = data->cam.curr_precision;
 	dist_adj = (data->player.dir.x * data->cam.dir.x + data->player.dir.y * data->cam.dir.y) * data->cam.dist;
-
 	if (dist_adj < 1)
 		img_height = data->resolution_height / 2;
 	else
 		img_height = data->resolution_height / dist_adj / 2;
 	height_mid = data->resolution_height / 2;
 	ray_width = data->resolution_width / data->cam.FOV_precision;
+
+
 	while (i < ray_width)
 	{
 		v_put(&data->draw.start, i + (ray_width * ray_no), 0);

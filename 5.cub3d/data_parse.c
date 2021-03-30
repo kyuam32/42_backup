@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 16:09:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/26 17:21:21 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/30 12:42:25 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void cub_data_trim(t_data *data)
 	}
 	cub_data_sort(line, data);
 	free(line);
+	close(fd);
 
 	map_create(data);
 }

@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:38:54 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/26 16:07:49 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/26 19:48:51 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,14 @@ void m_map_wall(t_data *data)
 		j = 0;
 		while (j < data->map.col)
 		{
-			if (data->map.map_arr[i][j] == '1')
-				draw_rectangle(data, j, i, 0x111111);
-			else
+			if (data->map.map_arr[i][j] == '0')
 				draw_rectangle(data, j, i, 0x555555);
+			else if (data->map.map_arr[i][j] == '1')
+				draw_rectangle(data, j, i, 0x111111);
+			else if (data->map.map_arr[i][j] == '2')
+				draw_rectangle(data, j, i, 0x666699);
+			else
+				draw_rectangle(data, j, i, 0x000000);
 			j++;
 		}
 		i++;

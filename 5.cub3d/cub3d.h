@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/26 17:58:52 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/30 16:33:43 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_texture
 	t_img SO_img;
 	t_img WE_img;
 	t_img EA_img;
+	t_img SP_img;
 	int floor;
 	int ceiling;
 } t_texture;
@@ -129,6 +130,7 @@ typedef struct s_cam
 	int FOV_precision;
 	int curr_precision;
 	double dist;
+	double sp_dist;
 } t_cam;
 
 typedef struct s_data
@@ -164,13 +166,14 @@ void draw_ray(t_data *data);
 void draw_3d(t_data *data);
 void draw_rectangle(t_data *data, int x, int y, int color);
 void draw_texture(t_data *data, int x, int y, int height);
+void draw_sp(t_data *data);
 
 /*
 // RAYCAST
 */
 
-void ray_cast(t_data *data, void (*draw_target)(t_data *));
-void ray_distance(t_data *data, double x_dir, double y_dir);
+void ray_cast(t_data *data,void (*draw_target)(t_data *), char tile);
+void ray_distance(t_data *data, double x_dir, double y_dir, char tile);
 void ray_initalize(t_data *data);
 
 /*

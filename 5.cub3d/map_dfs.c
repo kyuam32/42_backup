@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:20:07 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/26 18:46:10 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/30 15:21:31 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void map_dfs(t_data *data)
 
 int map_search_escape(t_data *data, int **is_visited, int x, int y)
 {
-	if (x == 0 || y == 0 || x == data->map.col - 1 || y == data->map.col - 1)
+	if (x == 0 || y == 0 || x == data->map.col - 1 || y == data->map.col - 1 || data->map.map_arr[y][x] == ' ')
 		return (data->crash_report = MAP_DATA_CORRUPTED + 3);
 	is_visited[y][x] = 1; //현재 위치를 .으로 바꿈
 
@@ -50,4 +50,5 @@ int map_search_escape(t_data *data, int **is_visited, int x, int y)
 				map_search_escape(data, is_visited, a, b);
 		}
 	}
+	return (0);
 }
