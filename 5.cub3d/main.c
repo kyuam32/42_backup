@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/30 16:32:20 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/30 22:02:00 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void texture_allocate(t_data *data)
 	int sp_w;
 	int sp_h;
 
+	int a = 120;
+	int b = 120;
+
 	width = 64;
 	height = 64;
-	sp_w = 120;
-	sp_h = 120;
 	tex = &data->texture;
 	tex->EA_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[EA_ARR], &width, &height);
 	tex->EA_img.data = (int *)mlx_get_data_addr(tex->EA_img.ptr, &tex->EA_img.bpp, &tex->EA_img.size_l, &tex->EA_img.endian);
@@ -37,7 +38,7 @@ void texture_allocate(t_data *data)
 	tex->NO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[NO_ARR], &width, &height);
 	tex->NO_img.data = (int *)mlx_get_data_addr(tex->NO_img.ptr, &tex->NO_img.bpp, &tex->NO_img.size_l, &tex->NO_img.endian);
 
-	tex->SP_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SP_ARR], &sp_w, &sp_h);
+	tex->SP_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SP_ARR], &width, &height);
 	tex->SP_img.data = (int *)mlx_get_data_addr(tex->SP_img.ptr, &tex->SP_img.bpp, &tex->SP_img.size_l, &tex->SP_img.endian);
 }
 
@@ -51,8 +52,8 @@ void player_allocate(t_data *data)
 	data->map.cub_width = data->resolution_width / data->map.w_scale / data->map.col;
 	data->map.cub_height = data->resolution_height / data->map.h_scale / data->map.row;
 
-	data->player.mov_speed = 0.5;
-	data->player.rot_speed = PI / 5;
+	data->player.mov_speed = 3;
+	data->player.rot_speed = DEG_TO_RAD(25);
 }
 
 int key_press(int keycode, t_data *data)

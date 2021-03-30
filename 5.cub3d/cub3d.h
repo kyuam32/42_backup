@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/30 16:33:43 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/30 21:30:17 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_draw
 	int color;
 	int tile;
 	int side;
+	int sp_side;
 } t_draw;
 
 typedef struct s_cam
@@ -172,8 +173,8 @@ void draw_sp(t_data *data);
 // RAYCAST
 */
 
-void ray_cast(t_data *data,void (*draw_target)(t_data *), char tile);
-void ray_distance(t_data *data, double x_dir, double y_dir, char tile);
+void ray_cast(t_data *data,void (*draw_target)(t_data *));
+void ray_distance(t_data *data, double x_dir, double y_dir);
 void ray_initalize(t_data *data);
 
 /*

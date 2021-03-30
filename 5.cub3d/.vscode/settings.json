@@ -19,6 +19,7 @@
 		"algorithm": "cpp",
 		"__hash_table": "cpp",
 		"type_traits": "cpp",
-		"version": "cpp"
+		"version": "cpp",
+		"complex": "c"
 	}
 }
