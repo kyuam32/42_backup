@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:42:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/31 14:36:41 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/31 22:16:17 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,16 @@ void ray_distance(t_data *data, double x_dir, double y_dir)
 		else if (data->map.map_arr[y_map][x_map] == '2')
 		{
 			data->draw.tile = '2';
-			draw_rectangle(data, x_map, y_map, 0x666699);
-			// if (data->cam.sp_dist == 0)
+			data->draw.sp_side = data->draw.side;
 			data->cam.sp_dist = ray_dist;
+			draw_rectangle(data, x_map, y_map, 0x666699);
+			sprite_rad(data, x_map, y_map);
+			// sprite_ray_rad(data, x_map, y_map);
+			// data->cam.sp_dist = hypot((y_map + 0.5 - player->axis.y), (x_map + 0.5 - player->axis.x));
+
+			// if (data->cam.sp_dist == 0)
 			// else
 			// 	data->cam.sp_dist = (data->cam.sp_dist < ray_dist) ? data->cam.sp_dist : ray_dist;
-
-			data->draw.sp_side = data->draw.side;
-			// data->cam.sp_dist = hypot((y_map + 0.5 - player->axis.y), (x_map + 0.5 - player->axis.x));
 		}
 	}
 }
@@ -104,8 +106,6 @@ void ray_cast(t_data *data,void (*draw_target)(t_data *))
 		data->cam.curr_precision++;
 		cur_dir += data->cam.FOV / data->cam.FOV_precision;
 	}
-	// printf("%f\n", data->cam.sp_dist);
-
 }
 
 void ray_initalize(t_data *data)

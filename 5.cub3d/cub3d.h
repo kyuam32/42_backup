@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/31 14:32:15 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/31 22:14:29 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_draw
 	int tile;
 	int side;
 	int sp_side;
+	t_vector sp_hit;
 } t_draw;
 
 typedef struct s_cam
@@ -133,6 +134,7 @@ typedef struct s_cam
 	double dist;
 	double sp_dist;
 	double sp_adj_dist;
+	double sp_rad;
 } t_cam;
 
 typedef struct s_data
@@ -177,6 +179,11 @@ void draw_sp(t_data *data);
 void ray_cast(t_data *data,void (*draw_target)(t_data *));
 void ray_distance(t_data *data, double x_dir, double y_dir);
 void ray_initalize(t_data *data);
+
+
+void sprite_rad(t_data *data, int x, int y);
+void sprite_ray_rad(t_data *data, int x, int y);
+
 
 /*
 // CREATE MINI_MAP

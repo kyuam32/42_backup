@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:41:44 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/31 14:42:27 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/31 22:00:59 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,8 +287,8 @@ void draw_3d(t_data *data)
 		v_put(&data->draw.end, i + (ray_width * ray_no), height_mid + height_mid);
 		draw->color = data->texture.floor;
 		draw_line(data);
-		if (data->draw.tile == '2')
-			draw_sprite(data, i + (ray_width * ray_no), sp_height_mid - sp_height, sp_height * 2);
+		// if (data->draw.tile == '2')
+		// 	draw_sprite(data, i + (ray_width * ray_no), sp_height_mid - sp_height, sp_height * 2);
 		i++;
 	}
 

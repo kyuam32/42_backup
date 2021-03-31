@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 18:59:19 by namkyu            #+#    #+#              #
-#    Updated: 2021/03/26 17:33:02 by namkyu           ###   ########.fr        #
+#    Updated: 2021/03/31 21:33:33 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ FILE = main \
 		data_parse \
 		map_parse \
 		map_dfs \
+		sprite \
 		3.GNL/get_next_line \
 		3.GNL/get_next_line_utils \
 
