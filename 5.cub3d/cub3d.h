@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/30 21:30:17 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/31 14:32:15 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_cam
 	int curr_precision;
 	double dist;
 	double sp_dist;
+	double sp_adj_dist;
 } t_cam;
 
 typedef struct s_data

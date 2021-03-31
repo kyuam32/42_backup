@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/30 22:02:00 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/31 14:11:46 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void texture_allocate(t_data *data)
 	tex->NO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[NO_ARR], &width, &height);
 	tex->NO_img.data = (int *)mlx_get_data_addr(tex->NO_img.ptr, &tex->NO_img.bpp, &tex->NO_img.size_l, &tex->NO_img.endian);
 
-	tex->SP_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SP_ARR], &width, &height);
+	tex->SP_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SP_ARR], &a, &b);
 	tex->SP_img.data = (int *)mlx_get_data_addr(tex->SP_img.ptr, &tex->SP_img.bpp, &tex->SP_img.size_l, &tex->SP_img.endian);
 }
 

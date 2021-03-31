@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:42:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/30 21:47:51 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/31 14:36:41 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ void ray_distance(t_data *data, double x_dir, double y_dir)
 			data->draw.tile = '2';
 			draw_rectangle(data, x_map, y_map, 0x666699);
 			// if (data->cam.sp_dist == 0)
-			// 	data->cam.sp_dist = ray_dist;
+			data->cam.sp_dist = ray_dist;
 			// else
 			// 	data->cam.sp_dist = (data->cam.sp_dist < ray_dist) ? data->cam.sp_dist : ray_dist;
 
 			data->draw.sp_side = data->draw.side;
-			data->cam.sp_dist = hypot((y_map + 0.5 - player->axis.y), (x_map + 0.5 - player->axis.x));
+			// data->cam.sp_dist = hypot((y_map + 0.5 - player->axis.y), (x_map + 0.5 - player->axis.x));
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:41:44 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/30 22:25:16 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/03/31 14:42:27 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,37 +92,84 @@ void draw_line(t_data *data)
 // 	}
 // }
 
+// void draw_sprite(t_data *data, int x, int y, int height)
+// {
+// 	t_img *img;
+// 	double deg;
+// 	int wall_x;
+// 	int i;
+// 	double repeat;
+
+// 	i = 0;
+// 	repeat = 1.0 * 64 / height;
+// 	deg = DEG_TO_RAD(45);
+
+// 	img = &data->texture.SP_img;
+
+// 	if (data->draw.sp_side == VIRTICAL_SIDE)
+// 	{
+// 		if (data->cam.dir.x < 0)
+// 			wall_x = 64 - ((data->player.axis.y + data->cam.sp_dist * data->cam.dir.y) - floor(data->player.axis.y + data->cam.sp_dist * data->cam.dir.y)) * 64;
+// 		else
+// 			wall_x = ((data->player.axis.y + data->cam.sp_dist * data->cam.dir.y) - floor(data->player.axis.y + data->cam.sp_dist * data->cam.dir.y)) * 64;
+// 	}
+// 	else
+// 	{
+// 		if (data->cam.dir.y < 0)
+// 			wall_x = ((data->player.axis.x + data->cam.sp_dist * data->cam.dir.x) - floor(data->player.axis.x + data->cam.sp_dist * data->cam.dir.x)) * 64;
+// 		else
+// 			wall_x = 64 - ((data->player.axis.x + data->cam.sp_dist * data->cam.dir.x) - floor(data->player.axis.x + data->cam.sp_dist * data->cam.dir.x)) * 64;
+// 	}
+// 	printf("[%d]\n", wall_x);
+// 	while (i < height)
+// 	{
+// 		data->img.data[(int)(y + i) * data->img.size_l / 4 + x] = img->data[(int)(repeat * i) * img->size_l / 4 + wall_x];
+// 		i++;
+// 	}
+// }
+
 void draw_sprite(t_data *data, int x, int y, int height)
 {
 	t_img *img;
-	double deg;
 	int wall_x;
 	int i;
 	double repeat;
 
 	i = 0;
-	repeat = 1.0 * 64 / height;
-	deg = DEG_TO_RAD(45);
-
-	img = &data->texture.SP_img;
+	repeat = 1.0 * 120 / height;
 
 	if (data->draw.sp_side == VIRTICAL_SIDE)
 	{
 		if (data->cam.dir.x < 0)
-			wall_x = 64 - ((data->player.axis.y + data->cam.sp_dist * data->cam.dir.y) - floor(data->player.axis.y + data->cam.sp_dist * data->cam.dir.y)) / cos(deg) / sqrt(2.0) * 64;
+		{
+			img = &data->texture.SP_img;
+			wall_x = 120 - ((data->player.axis.y + data->cam.sp_dist * data->cam.dir.y) - floor(data->player.axis.y + data->cam.sp_dist * data->cam.dir.y)) / 2 * 120;
+		}
 		else
-			wall_x = ((data->player.axis.y + data->cam.sp_dist * data->cam.dir.y) - floor(data->player.axis.y + data->cam.sp_dist * data->cam.dir.y)) / cos(deg) / sqrt(2.0) * 64;
+		{
+			img = &data->texture.SP_img;
+			wall_x = ((data->player.axis.y + data->cam.sp_dist * data->cam.dir.y) - floor(data->player.axis.y + data->cam.sp_dist * data->cam.dir.y)) / 2 * 120;
+		}
 	}
 	else
 	{
 		if (data->cam.dir.y < 0)
-			wall_x = ((data->player.axis.x + data->cam.sp_dist * data->cam.dir.x) - floor(data->player.axis.x + data->cam.sp_dist * data->cam.dir.x)) / cos(deg) / sqrt(2.0) * 64;
+		{
+			img = &data->texture.SP_img;
+			wall_x = ((data->player.axis.x + data->cam.sp_dist * data->cam.dir.x) - floor(data->player.axis.x + data->cam.sp_dist * data->cam.dir.x)) / 2 * 120;
+		}
 		else
-			wall_x = 64 - ((data->player.axis.x + data->cam.sp_dist * data->cam.dir.x) - floor(data->player.axis.x + data->cam.sp_dist * data->cam.dir.x)) / cos(deg) / sqrt(2.0) * 64;
+		{
+			img = &data->texture.SP_img;
+			wall_x = 120 - ((data->player.axis.x + data->cam.sp_dist * data->cam.dir.x) - floor(data->player.axis.x + data->cam.sp_dist * data->cam.dir.x)) / 2 * 120;
+		}
 	}
 	while (i < height)
 	{
-		data->img.data[(int)(y + i) * data->img.size_l / 4 + x] = img->data[(int)(repeat * i) * img->size_l / 4 + wall_x];
+		if (img->data[(int)(repeat * i) * img->size_l / 4 + wall_x] != -16777216)
+		{
+			data->img.data[(int)(y + i) * data->img.size_l / 4 + x] = img->data[(int)(repeat * i) * img->size_l / 4 + wall_x];
+		}
 		i++;
 	}
 }
@@ -170,33 +217,33 @@ void draw_texture(t_data *data, int x, int y, int height)
 	}
 }
 
-void draw_sp(t_data *data)
-{
-	double sp_dist;
-	int sp_height;
-	int sp_height_mid;
-	int ray_width;
-	int ray_no;
-	int i;
-	t_draw *draw = &data->draw;
+// void draw_sp(t_data *data)
+// {
+// 	double sp_dist;
+// 	int sp_height;
+// 	int sp_height_mid;
+// 	int ray_width;
+// 	int ray_no;
+// 	int i;
+// 	t_draw *draw = &data->draw;
 
-	ray_no = data->cam.curr_precision;
-	i = 0;
-	if (data->cam.sp_dist < 1)
-		sp_height = data->resolution_height / 2;
-	else
-		sp_height = data->resolution_height / data->cam.sp_dist / 2;
-	sp_height_mid = data->resolution_height / 2;
-	ray_width = data->resolution_width / data->cam.FOV_precision;
-	if (data->draw.tile == '2')
-	{
-		while (i < ray_width)
-		{
-			draw_sprite(data, i + (ray_width * ray_no), sp_height_mid - sp_height, sp_height * 2);
-			i++;
-		}
-	}
-}
+// 	ray_no = data->cam.curr_precision;
+// 	i = 0;
+// 	if (data->cam.sp_dist < 1)
+// 		sp_height = data->resolution_height / 2;
+// 	else
+// 		sp_height = data->resolution_height / data->cam.sp_dist / 2;
+// 	sp_height_mid = data->resolution_height / 2;
+// 	ray_width = data->resolution_width / data->cam.FOV_precision;
+// 	if (data->draw.tile == '2')
+// 	{
+// 		while (i < ray_width)
+// 		{
+// 			draw_sprite(data, i + (ray_width * ray_no), sp_height_mid - sp_height, sp_height * 2);
+// 			i++;
+// 		}
+// 	}
+// }
 
 void draw_3d(t_data *data)
 {
