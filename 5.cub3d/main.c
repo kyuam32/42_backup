@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/31 21:37:27 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/05 20:12:38 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void player_allocate(t_data *data)
 	data->map.cub_width = data->resolution_width / data->map.w_scale / data->map.col;
 	data->map.cub_height = data->resolution_height / data->map.h_scale / data->map.row;
 
-	data->player.mov_speed = 1;
+	data->player.mov_speed = 0.5;
 	data->player.rot_speed = DEG_TO_RAD(10);
 }
 

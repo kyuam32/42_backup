@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/31 22:14:29 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/05 19:36:59 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,6 @@ typedef struct s_draw
 	int color;
 	int tile;
 	int side;
-	int sp_side;
-	t_vector sp_hit;
 } t_draw;
 
 typedef struct s_cam
@@ -132,10 +130,16 @@ typedef struct s_cam
 	int FOV_precision;
 	int curr_precision;
 	double dist;
+} t_cam;
+
+typedef struct s_sprite
+{
+	t_vector hit;
+	double sp_rad;
 	double sp_dist;
 	double sp_adj_dist;
-	double sp_rad;
-} t_cam;
+	int sp_side;
+} t_sprite;
 
 typedef struct s_data
 {
@@ -146,11 +150,13 @@ typedef struct s_data
 	t_minimap map;
 	t_cam cam;
 	t_draw draw;
+	t_sprite sprite;
 	int cub_size;
 	int resolution_width;
 	int resolution_height;
 	int crash_report;
 } t_data;
+
 
 /*
 // DATA PARSE
@@ -179,7 +185,7 @@ void draw_sp(t_data *data);
 void ray_cast(t_data *data,void (*draw_target)(t_data *));
 void ray_distance(t_data *data, double x_dir, double y_dir);
 void ray_initalize(t_data *data);
-
+void ray_sprite(t_data *data, double x_dir, double y_dir);
 
 void sprite_rad(t_data *data, int x, int y);
 void sprite_ray_rad(t_data *data, int x, int y);

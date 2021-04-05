@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:42:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/31 22:16:17 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/05 19:24:31 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void ray_distance(t_data *data, double x_dir, double y_dir)
 	int hit = 0;
 	
 	data->draw.tile = 0;
-	data->cam.sp_dist = 0;
+	data->sprite.sp_dist = 0;
 	delta.x = (y_dir == 0) ? 0 : ((x_dir == 0) ? 1 : fabs(1 / x_dir));
     delta.y = (x_dir == 0) ? 0 : ((y_dir == 0) ? 1 : fabs(1 / y_dir));
 
@@ -74,21 +74,18 @@ void ray_distance(t_data *data, double x_dir, double y_dir)
 		else if (data->map.map_arr[y_map][x_map] == '2')
 		{
 			data->draw.tile = '2';
-			data->draw.sp_side = data->draw.side;
-			data->cam.sp_dist = ray_dist;
+			data->sprite.sp_side = data->draw.side;
+			if (data->sprite.sp_dist == 0)
+			{
+				data->sprite.sp_dist = ray_dist;
+				sprite_rad(data, x_map, y_map);
+				sprite_ray_rad(data, x_map, y_map);
+				data->sprite.sp_adj_dist = hypot((y_map + 0.5 - player->axis.y), (x_map + 0.5 - player->axis.x));
+			}
 			draw_rectangle(data, x_map, y_map, 0x666699);
-			sprite_rad(data, x_map, y_map);
-			// sprite_ray_rad(data, x_map, y_map);
-			// data->cam.sp_dist = hypot((y_map + 0.5 - player->axis.y), (x_map + 0.5 - player->axis.x));
-
-			// if (data->cam.sp_dist == 0)
-			// else
-			// 	data->cam.sp_dist = (data->cam.sp_dist < ray_dist) ? data->cam.sp_dist : ray_dist;
 		}
 	}
 }
-
-
 
 void ray_cast(t_data *data,void (*draw_target)(t_data *))
 {
@@ -99,6 +96,7 @@ void ray_cast(t_data *data,void (*draw_target)(t_data *))
 
 	while (cur_dir < data->cam.FOV / 2)
 	{
+		// printf("curr : [%f] total : [%f]\n", cur_dir, data->cam.FOV / 2);
 		data->cam.dir.x = data->player.dir.x * cos(cur_dir) - data->player.dir.y * sin(cur_dir);
 		data->cam.dir.y = data->player.dir.x * sin(cur_dir) + data->player.dir.y * cos(cur_dir);
 		ray_distance(data, data->cam.dir.x, data->cam.dir.y);
@@ -107,6 +105,12 @@ void ray_cast(t_data *data,void (*draw_target)(t_data *))
 		cur_dir += data->cam.FOV / data->cam.FOV_precision;
 	}
 }
+
+// void ray_alloc(t_data *data)
+// {
+
+
+// }
 
 void ray_initalize(t_data *data)
 {
