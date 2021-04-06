@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 20:42:41 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/05 21:52:56 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 10:46:51 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ void sprite_ray_rad(t_data *data, int x, int y)
 	if ((cur->x <= x + 1 && cur->y <= y))
 		rad2 = (atan2((y - cur->y), (x + 1 - cur->x)));
 	else if ((cur->x > x + 1 && cur->y <= y + 1)) ////////////////////////
+	{
+		if (rad1 < 0)
+			rad1 = PI + PI + rad1;
 		rad2 = (atan2((y + 1 - cur->y), (x + 1 - cur->x)));
+	}
 	else if ((cur->x >= x && cur->y >= y + 1))
 		rad2 = (atan2((y + 1 - cur->y), (x - cur->x)));
 	else if ((cur->x < x && cur->y > y))
 		rad2 = (atan2((y - cur->y), (x - cur->x)));
-	// printf("%f , %f \n", rad1, rad2);
-
 	data->sprite.sp_rad = fabs(rad1 - rad2) / data->sprite.sp_rad;
 }
 
@@ -73,5 +75,4 @@ void sprite_rad(t_data *data, int x, int y)
 		rad2 = (atan2((y + 1 - cur->y), (x + 1 - cur->x)));
 	}
 	data->sprite.sp_rad = fabs(rad1 - rad2);
-	// printf("%f\n", data->sprite.sp_rad * 180 / PI);
 }

@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:41:44 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/05 21:01:28 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 10:49:06 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,21 +136,15 @@ void draw_sprite(t_data *data, int x, int y, int height)
 	int i;
 	double repeat;
 
-
-
 	i = 0;
 	repeat = 1.0 * 120 / height;
 	img = &data->texture.SP_img;
 	cur = &data->player.axis;
-
-	// printf("%f\n", data->sprite.sp_rad);
 	wall_x = 120 * data->sprite.sp_rad;
 	while (i < height)
 	{
 		if (img->data[(int)(repeat * i) * img->size_l / 4 + wall_x] != -16777216)
-		{
 			data->img.data[(int)(y + i) * data->img.size_l / 4 + x] = img->data[(int)(repeat * i) * img->size_l / 4 + wall_x];
-		}
 		i++;
 	}
 }

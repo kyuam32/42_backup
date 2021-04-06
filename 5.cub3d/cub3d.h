@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/05 19:36:59 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 12:46:53 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 
 #define CUB_DATA_CORRUPTED 5000
 #define MAP_DATA_CORRUPTED 4000
+#define MEM_ALLOCATE_FAILED 3000
+
 
 #define HORIZOTAL_SIDE 0
 #define VIRTICAL_SIDE 1
@@ -86,6 +88,7 @@ typedef struct s_player
 	t_vector dir;
 	double mov_speed;
 	double rot_speed;
+	int locate;
 } t_player;
 
 typedef struct s_texture
@@ -111,7 +114,7 @@ typedef struct s_minimap
 	int w_scale;
 	int h_scale;
 	int h_offset;
-
+	int **dfs;
 } t_minimap;
 
 typedef struct s_draw
@@ -206,6 +209,7 @@ void map_parse(char *line,t_data *data);
 void map_create(t_data *data);
 void map_allocate(t_data *data);
 void map_sizecheck(t_data *data);
+void map_dfs_free(t_data *data);
 
 /*
 // DFS
@@ -220,6 +224,8 @@ int map_search_escape(t_data *data, int **is_visited, int x, int y);
 void v_put(t_vector *vec, int x_input, int y_input);
 int is_valid_char(char c);
 void player_dir_set(t_data *data, char c, int row, int col);
+void error_stop(t_data *data, int errno);
+void error_message(t_data *data);
 
 
 /*

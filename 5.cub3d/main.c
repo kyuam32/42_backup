@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/05 20:12:38 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 12:53:00 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,13 @@ int main_loop(t_data *data)
 int main()
 {
 	t_data data;
-	data.crash_report = 0;
 
+	ft_memset(&data, 0, sizeof(t_data));
 	cub_data_trim(&data);
 	map_dfs(&data);
 
 	data.system.mlx = mlx_init();
-	data.system.win = mlx_new_window(data.system.mlx, data.resolution_width, data.resolution_height, "Namkyu's test");
+	data.system.win = mlx_new_window(data.system.mlx, data.resolution_width, data.resolution_height, "Namkyu's Cub3d");
 
 	data.img.ptr = mlx_new_image(data.system.mlx, data.resolution_width, data.resolution_height);
 	data.img.data = (int *)mlx_get_data_addr(data.img.ptr, &data.img.bpp, &data.img.size_l, &data.img.endian);

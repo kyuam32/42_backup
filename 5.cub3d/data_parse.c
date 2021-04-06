@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 16:09:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/30 12:42:25 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 11:38:45 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void rgb_parse(char *str, int *object, t_data *data)
 	}
 	if (bit != -8)
 		data->crash_report = CUB_DATA_CORRUPTED + 2;
-	printf("[FLOOR R]%i\n", *object);
 }
 
 void resolution_parse(char *str, t_data *data)
@@ -45,7 +44,6 @@ void resolution_parse(char *str, t_data *data)
 	int temp;
 	int cur_DP_width;
 	int cur_DP_height;
-
 
 	while(!(ft_isdigit(*str)))
 		str++;
@@ -68,8 +66,6 @@ void resolution_parse(char *str, t_data *data)
 		data->resolution_height = cur_DP_height;
 	else if (data->resolution_height < 100)
 		data->resolution_height = 100;
-	printf("[res 0]%d\n", data->resolution_width);
-	printf("[res 1]%d\n", data->resolution_height);
 }
 
 void texture_path_parse(char *str, int type, t_data *data)
@@ -137,6 +133,5 @@ void cub_data_trim(t_data *data)
 	cub_data_sort(line, data);
 	free(line);
 	close(fd);
-
 	map_create(data);
 }

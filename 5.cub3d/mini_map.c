@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:38:54 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/26 19:48:51 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 10:57:09 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void m_map_wall(t_data *data)
 				draw_rectangle(data, j, i, 0x111111);
 			else if (data->map.map_arr[i][j] == '2')
 				draw_rectangle(data, j, i, 0x666699);
+			else if (ft_memchr("EWSN", data->map.map_arr[i][j], 4))
+				draw_rectangle(data, j, i, 0xFF0000);
 			else
 				draw_rectangle(data, j, i, 0x000000);
 			j++;

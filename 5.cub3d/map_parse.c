@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:22:46 by namkyu            #+#    #+#             */
-/*   Updated: 2021/03/26 19:59:23 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 12:37:55 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void map_allocate(t_data *data)
 
 	i = 0;
 	map = &data->map;
-
-	map->map_arr = (char **)malloc(sizeof(char *) * map->row + 1);
+	if (!(map->map_arr = (char **)malloc(sizeof(char *) * map->row)))
+		data->crash_report = MEM_ALLOCATE_FAILED + 2;
 	while (i < map->row)
 	{
-		map->map_arr[i] = (char *)malloc(sizeof(char) * map->col + 1);
+		if (!(map->map_arr[i] = (char *)malloc(sizeof(char) * map->col + 1)))
+			data->crash_report = MEM_ALLOCATE_FAILED + 2;
 		map->map_arr[i][map->col] = 0;
 		i++;
 	}
-	map->map_arr[i] = NULL;
 }
 
 void map_str_to_array(t_data *data)
@@ -58,8 +58,10 @@ void map_str_to_array(t_data *data)
 					data->map.map_arr[i][j] = *map_str;
 					player_dir_set(data ,*map_str, i, j);
 				}
-				else
+				else if (*map_str == '0' || *map_str == '1' || *map_str == '2' || *map_str == ' ')
 					data->map.map_arr[i][j] = *map_str;
+				else
+					data->crash_report = MAP_DATA_CORRUPTED + 3;
 				j++;
 			}
 			map_str++;
@@ -101,33 +103,27 @@ void map_sizecheck(t_data *data)
 
 void map_create(t_data *data)
 {
-	int i;
-	int j;
 	printf("[map_str]\n");
 	printf("%s\n", data->map.map_str);
-
+	data->player.locate = 0;
 	map_sizecheck(data);
 	map_allocate(data);
 	map_str_to_array(data);
-
+	if (data->map.map_str)
+		free(data->map.map_str);
 	printf("row : %d col : %d\n", data->map.row, data->map.col);
-	i = 0;
-
-	while (i < data->map.row)
-	{
-		printf("%s\n", data->map.map_arr[i]);
-		i++;
-	}
 }
 
-void map_parse(char *line,t_data *data)
+void map_parse(char *line, t_data *data) // 조건 보완?
 {
 	char *map;
 	char *temp;
 
-	map = ft_strjoin(data->map.map_str, line);
+	if (!(map = ft_strjoin(data->map.map_str, line)))
+		data->crash_report = MEM_ALLOCATE_FAILED + 1;
 	temp = map;
-	map = ft_strjoin(map, "\n");
+	if (!(map = ft_strjoin(map, "\n")))
+		data->crash_report = MEM_ALLOCATE_FAILED + 1;
 	free(temp);
 	data->map.map_str = map;
 }

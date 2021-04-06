@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:42:34 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/05 19:24:31 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 10:46:41 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void ray_distance(t_data *data, double x_dir, double y_dir)
 		{
 			data->draw.tile = '2';
 			data->sprite.sp_side = data->draw.side;
-			if (data->sprite.sp_dist == 0)
+			if (data->sprite.sp_dist == 0 )
 			{
 				data->sprite.sp_dist = ray_dist;
 				sprite_rad(data, x_map, y_map);
@@ -96,7 +96,6 @@ void ray_cast(t_data *data,void (*draw_target)(t_data *))
 
 	while (cur_dir < data->cam.FOV / 2)
 	{
-		// printf("curr : [%f] total : [%f]\n", cur_dir, data->cam.FOV / 2);
 		data->cam.dir.x = data->player.dir.x * cos(cur_dir) - data->player.dir.y * sin(cur_dir);
 		data->cam.dir.y = data->player.dir.x * sin(cur_dir) + data->player.dir.y * cos(cur_dir);
 		ray_distance(data, data->cam.dir.x, data->cam.dir.y);
@@ -105,12 +104,6 @@ void ray_cast(t_data *data,void (*draw_target)(t_data *))
 		cur_dir += data->cam.FOV / data->cam.FOV_precision;
 	}
 }
-
-// void ray_alloc(t_data *data)
-// {
-
-
-// }
 
 void ray_initalize(t_data *data)
 {
