@@ -6,17 +6,17 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 18:59:19 by namkyu            #+#    #+#              #
-#    Updated: 2021/03/31 21:33:33 by namkyu           ###   ########.fr        #
+#    Updated: 2021/04/06 22:07:29 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -g
 LIBS = -L ./ -lmlx -framework OpenGL -framework AppKit
 MLX = libmlx.dylib
 LIBFT = libft.a
 
-NAME = cub3d
+NAME = cub3D
 FILE = main \
 		utils \
 		ray_cast \

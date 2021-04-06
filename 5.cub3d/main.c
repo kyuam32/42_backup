@@ -6,19 +6,28 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/06 12:53:00 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 21:22:36 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void texture_allocate(t_data *data)
+
+void allocate_system(t_data *data)
+{
+	data->system.mlx = mlx_init();
+	data->system.win = mlx_new_window(data->system.mlx, data->resolution_width, data->resolution_height, "Namkyu's Cub3d");
+	data->img.ptr = mlx_new_image(data->system.mlx, data->resolution_width, data->resolution_height);
+	data->img.data = (int *)mlx_get_data_addr(data->img.ptr, &data->img.bpp, &data->img.size_l, &data->img.endian);
+}
+void allocate_texture(t_data *data)
 {
 	t_texture *tex;
 	int width;
 	int height;
 	int sp_w;
 	int sp_h;
+	int i;
 
 	int a = 120;
 	int b = 120;
@@ -26,23 +35,26 @@ void texture_allocate(t_data *data)
 	width = 64;
 	height = 64;
 	tex = &data->texture;
-	tex->EA_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[EA_ARR], &width, &height);
+	tex->EA_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[EA], &width, &height);
 	tex->EA_img.data = (int *)mlx_get_data_addr(tex->EA_img.ptr, &tex->EA_img.bpp, &tex->EA_img.size_l, &tex->EA_img.endian);
-
-	tex->WE_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[WE_ARR], &width, &height);
+	tex->WE_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[WE], &width, &height);
 	tex->WE_img.data = (int *)mlx_get_data_addr(tex->WE_img.ptr, &tex->WE_img.bpp, &tex->WE_img.size_l, &tex->WE_img.endian);
-
-	tex->SO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SO_ARR], &width, &height);
+	tex->SO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SO], &width, &height);
 	tex->SO_img.data = (int *)mlx_get_data_addr(tex->SO_img.ptr, &tex->SO_img.bpp, &tex->SO_img.size_l, &tex->SO_img.endian);
-	
-	tex->NO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[NO_ARR], &width, &height);
+	tex->NO_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[NO], &width, &height);
 	tex->NO_img.data = (int *)mlx_get_data_addr(tex->NO_img.ptr, &tex->NO_img.bpp, &tex->NO_img.size_l, &tex->NO_img.endian);
-
-	tex->SP_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SP_ARR], &a, &b);
+	tex->SP_img.ptr = mlx_xpm_file_to_image(data->system.mlx, data->texture.path[SP], &a, &b);
 	tex->SP_img.data = (int *)mlx_get_data_addr(tex->SP_img.ptr, &tex->SP_img.bpp, &tex->SP_img.size_l, &tex->SP_img.endian);
+	i = 0;
+	while (i < 5)
+	{
+		if (data->texture.path[i])
+			free(data->texture.path[i]);
+		i++;
+	}
 }
 
-void player_allocate(t_data *data)
+void allocate_player(t_data *data)
 {
 
 	data->map.w_scale = 4;
@@ -113,16 +125,11 @@ int main()
 
 	ft_memset(&data, 0, sizeof(t_data));
 	cub_data_trim(&data);
-	map_dfs(&data);
+	map_create(&data);
 
-	data.system.mlx = mlx_init();
-	data.system.win = mlx_new_window(data.system.mlx, data.resolution_width, data.resolution_height, "Namkyu's Cub3d");
-
-	data.img.ptr = mlx_new_image(data.system.mlx, data.resolution_width, data.resolution_height);
-	data.img.data = (int *)mlx_get_data_addr(data.img.ptr, &data.img.bpp, &data.img.size_l, &data.img.endian);
-
-	texture_allocate(&data);
-	player_allocate(&data);
+	allocate_system(&data);
+	allocate_texture(&data);
+	allocate_player(&data);
 
 	mlx_hook(data.system.win, X_EVENT_KEY_PRESS, 0, &key_press, &data);
 	mlx_loop_hook(data.system.mlx, &main_loop, &data);

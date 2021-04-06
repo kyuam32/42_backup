@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:38:54 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/06 10:57:09 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 21:56:15 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 void m_map_grid(t_data *data)
 {
-	t_minimap *map = &data->map;
+	t_minimap *map = &(data->map);
 	int i;
 	int j;
 
 	i = 0;
 	while (i <= map->col)
 	{
-		v_put(&data->draw.start, i * map->cub_width, map->h_offset);
-		v_put(&data->draw.end, i * map->cub_width, map->h_offset + map->row * map->cub_height);
+		v_put(&(data->draw.start), i * map->cub_width, map->h_offset);
+		v_put(&(data->draw.end), i * map->cub_width, map->h_offset + map->row * map->cub_height);
 		data->draw.color = 0x000000;
 		draw_line(data);
 		i++;
 	}
 	i = 0;
-	while (i <= map->row)
+	while (i < map->row)
 	{
-		v_put(&data->draw.start, 0, map->h_offset + i * map->cub_height);
-		v_put(&data->draw.end, map->col * map->cub_width, map->h_offset + i * map->cub_height);
+		v_put(&(data->draw.start), 0, map->h_offset + i * map->cub_height);
+		v_put(&(data->draw.end), map->col * map->cub_width, map->h_offset + i * map->cub_height);
 		data->draw.color = 0x000000;
 		draw_line(data);
 		i++;

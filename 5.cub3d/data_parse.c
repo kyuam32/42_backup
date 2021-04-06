@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 16:09:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/06 11:38:45 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 21:20:43 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void rgb_parse(char *str, int *object, t_data *data)
 	int bit;
 
 	bit = 16;
-	*object = 0; // 난중에 초기화 함수 넣고 지워라
 	while (*str == ' ')
 		str++;
 	while (ft_isdigit(*str) || *str == ',')
@@ -82,16 +81,18 @@ void texture_path_parse(char *str, int type, t_data *data)
 	else
 	{
 		if (type == EA)
-			data->texture.path[EA_ARR] = ft_strdup(str);
+			data->texture.path[EA] = ft_strdup(str);
 		else if (type == WE)
-			data->texture.path[WE_ARR] = ft_strdup(str);
+			data->texture.path[WE] = ft_strdup(str);
 		else if (type == SO)
-			data->texture.path[SO_ARR] = ft_strdup(str);
+			data->texture.path[SO] = ft_strdup(str);
 		else if (type == NO)
-			data->texture.path[NO_ARR] = ft_strdup(str);
+			data->texture.path[NO] = ft_strdup(str);
 		else if (type == SP)
-			data->texture.path[SP_ARR] = ft_strdup(str);
+			data->texture.path[SP] = ft_strdup(str);
 	}
+	if (!(data->texture.path[type]))
+		data->crash_report = MEM_ALLOCATE_FAILED + 2;
 }
 
 void cub_data_sort(char *line, t_data *data)
@@ -122,7 +123,7 @@ void cub_data_trim(t_data *data)
 	int fd;
 	char *line;
 
-	data->map.map_str = NULL;
+	data->map.map_str = 0;
 	if ((fd = open("./map.cub", O_RDONLY)) < 0)
 		data->crash_report = CUB_DATA_CORRUPTED + 6;
 	while(get_next_line(fd, &line))
@@ -133,5 +134,4 @@ void cub_data_trim(t_data *data)
 	cub_data_sort(line, data);
 	free(line);
 	close(fd);
-	map_create(data);
 }

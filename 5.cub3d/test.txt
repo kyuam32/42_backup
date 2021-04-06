@@ -1,0 +1,99 @@
+==71720== Memcheck, a memory error detector
+==71720== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==71720== Using Valgrind-3.17.0.GIT-lbmacos-adaae87a41-20201121 and LibVEX; rerun with -h for copyright info
+==71720== Command: ./cub3D
+==71720== Parent PID: 62684
+==71720== 
+--71720-- 
+--71720-- Valgrind options:
+--71720--    --leak-check=full
+--71720--    --error-limit=no
+--71720--    -v
+--71720--    --log-file=test.txt
+--71720-- Output from sysctl({CTL_KERN,KERN_VERSION}):
+--71720--   Darwin Kernel Version 20.3.0: Thu Jan 21 00:07:06 PST 2021; root:xnu-7195.81.3~1/RELEASE_X86_64
+--71720-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
+--71720-- Page sizes: currently 4096, max supported 4096
+--71720-- Valgrind library directory: /usr/local/Cellar/valgrind/HEAD-adaae87/lib/valgrind
+--71720-- ./cub3D (rx at 0x100000000, rw at 0x100008000)
+--71720--    reading syms   from primary file (56 3)
+--71720--    dSYM= ./cub3D.dSYM/Contents/Resources/DWARF/cub3D
+--71720-- /usr/lib/dyld (rx at 0x100014000, rw at 0x1000b0000)
+--71720--    reading syms   from primary file (5 2886)
+--71720-- Scheduler: using generic scheduler lock implementation.
+--71720-- Reading suppressions file: /usr/local/Cellar/valgrind/HEAD-adaae87/lib/valgrind/default.supp
+==71720== embedded gdbserver: reading from /var/folders/hm/22jdj_fs411b9qxpk0ynmbj00000gn/T//vgdb-pipe-from-vgdb-to-71720-by-namkyu-on-???
+==71720== embedded gdbserver: writing to   /var/folders/hm/22jdj_fs411b9qxpk0ynmbj00000gn/T//vgdb-pipe-to-vgdb-from-71720-by-namkyu-on-???
+==71720== embedded gdbserver: shared mem   /var/folders/hm/22jdj_fs411b9qxpk0ynmbj00000gn/T//vgdb-pipe-shared-mem-vgdb-71720-by-namkyu-on-???
+==71720== 
+==71720== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==71720== don't want to do, unless you know exactly what you're doing,
+==71720== or are doing some strange experiment):
+==71720==   /usr/local/Cellar/valgrind/HEAD-adaae87/lib/valgrind/../../bin/vgdb --pid=71720 ...command...
+==71720== 
+==71720== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==71720==   /path/to/gdb ./cub3D
+==71720== and then give GDB the following command
+==71720==   target remote | /usr/local/Cellar/valgrind/HEAD-adaae87/lib/valgrind/../../bin/vgdb --pid=71720
+==71720== --pid is optional if only one valgrind process is running
+==71720== 
+--71720-- REDIR: 0x10006be00 (dyld:strcmp) redirected to 0x2580587bb (???)
+--71720-- REDIR: 0x100065df4 (dyld:arc4random) redirected to 0x258058859 (???)
+--71720-- REDIR: 0x10006b1e0 (dyld:strlen) redirected to 0x25805878a (???)
+--71720-- REDIR: 0x10006c100 (dyld:strcpy) redirected to 0x2580587d7 (???)
+--71720-- REDIR: 0x100069289 (dyld:strcat) redirected to 0x25805879b (???)
+--71720-- REDIR: 0x10006afd2 (dyld:strlcat) redirected to 0x2580587f4 (???)
+==71720== Warning: set address range perms: large range [0x7fff200d1000, 0x80001fed1000) (defined)
+==71720== Warning: set address range perms: large range [0x7fff200d1000, 0x7fff7fd89000) (defined)
+==71720== Warning: set address range perms: large range [0x7fff8e03d000, 0x7fffc00d1000) (noaccess)
+==71720== Warning: set address range perms: large range [0x7fffc00d1000, 0x7fffe2361000) (defined)
+==71720== Warning: set address range perms: large range [0x7fffe2361000, 0x7fffffe00000) (noaccess)
+--71720-- /usr/local/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_core-amd64-darwin.so (rx at 0x10012c000, rw at 0x100130000)
+--71720--    reading syms   from primary file (3 53)
+--71720--    dSYM= /usr/local/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_core-amd64-darwin.so.dSYM/Contents/Resources/DWARF/vgpreload_core-amd64-darwin.so
+--71720-- /usr/local/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so (rx at 0x100138000, rw at 0x100140000)
+--71720--    reading syms   from primary file (75 62)
+--71720--    dSYM= /usr/local/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so.dSYM/Contents/Resources/DWARF/vgpreload_memcheck-amd64-darwin.so
+--71720-- /Users/namkyu/1_about_devs/42seoul_nlee/5.cub3d/libmlx.dylib (rx at 0x100148000, rw at 0x100188000)
+--71720--    reading syms   from primary file (244 831)
+--71720--    dSYM= /Users/namkyu/1_about_devs/42seoul_nlee/5.cub3d/libmlx.dylib.dSYM/Contents/Resources/DWARF/libmlx.dylib
+--71720-- UNKNOWN mach_msg unhandled MACH_SEND_TRAILER option
+--71720-- UNKNOWN mach_msg unhandled MACH_SEND_TRAILER option (repeated 2 times)
+--71720-- UNKNOWN mach_msg unhandled MACH_SEND_TRAILER option (repeated 4 times)
+--71720-- UNKNOWN mach_msg unhandled MACH_SEND_TRAILER option (repeated 8 times)
+UNKNOWN workq_ops option 1024
+==71720== Thread 2:
+==71720== Invalid write of size 8
+==71720==    at 0x7FFF20246F67: ??? (in /dev/ttys001)
+==71720==    by 0x7FFF203DF452: ??? (in /dev/ttys001)
+==71720==    by 0x7FFF203DE466: ??? (in /dev/ttys001)
+==71720==  Address 0x20 is not stack'd, malloc'd or (recently) free'd
+==71720== 
+==71720== 
+==71720== Process terminating with default action of signal 11 (SIGSEGV)
+==71720==  Access not within mapped region at address 0x20
+==71720==    at 0x7FFF20246F67: ??? (in /dev/ttys001)
+==71720==    by 0x7FFF203DF452: ??? (in /dev/ttys001)
+==71720==    by 0x7FFF203DE466: ??? (in /dev/ttys001)
+==71720==  If you believe this happened as a result of a stack
+==71720==  overflow in your program's main thread (unlikely but
+==71720==  possible), you can try to increase the size of the
+==71720==  main thread stack using the --main-stacksize= flag.
+==71720==  The main thread stack size used in this run was 8388608.
+==71720== 
+==71720== HEAP SUMMARY:
+==71720==     in use at exit: 0 bytes in 0 blocks
+==71720==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==71720== 
+==71720== All heap blocks were freed -- no leaks are possible
+==71720== 
+==71720== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==71720== 
+==71720== 1 errors in context 1 of 1:
+==71720== Invalid write of size 8
+==71720==    at 0x7FFF20246F67: ??? (in /dev/ttys001)
+==71720==    by 0x7FFF203DF452: ??? (in /dev/ttys001)
+==71720==    by 0x7FFF203DE466: ??? (in /dev/ttys001)
+==71720==  Address 0x20 is not stack'd, malloc'd or (recently) free'd
+==71720== 
+==71720== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

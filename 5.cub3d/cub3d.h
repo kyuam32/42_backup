@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/06 12:46:53 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/06 20:34:34 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,11 @@
 #define PI 3.14159265359
 #define DEG_TO_RAD(x) (x * PI / 180)
 
-#define EA_ARR 0
-#define WE_ARR 1
-#define SO_ARR 2
-#define NO_ARR 3
-#define SP_ARR 4
-
-#define EA 21
-#define WE 39
-#define SO 35
-#define NO 30
-#define SP 2
+#define EA 0
+#define WE 1
+#define SO 2
+#define NO 3
+#define SP 4
 
 typedef struct s_vector
 {
@@ -114,7 +108,7 @@ typedef struct s_minimap
 	int w_scale;
 	int h_scale;
 	int h_offset;
-	int **dfs;
+	char **dfs;
 } t_minimap;
 
 typedef struct s_draw
@@ -215,7 +209,7 @@ void map_dfs_free(t_data *data);
 // DFS
 */
 void map_dfs(t_data *data);
-int map_search_escape(t_data *data, int **is_visited, int x, int y);
+int map_search_escape(t_data *data, char **is_visited, int x, int y);
 
 /*
 // UTILS
@@ -228,11 +222,15 @@ void error_stop(t_data *data, int errno);
 void error_message(t_data *data);
 
 
+void	print_ptr(char **s);
+
 /*
 // MAIN
 */
 
-void player_allocate(t_data *data);
+void allocate_player(t_data *data);
+void allocate_texture(t_data *data);
+void allocate_system(t_data *data);
 int key_press(int keycode, t_data *data);
 void map_parse();
 void temp_map(t_data *data);
