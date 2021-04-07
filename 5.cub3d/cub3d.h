@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/06 20:34:34 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/07 21:17:59 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,22 @@
 #include "1.libft/libft.h"
 
 #define X_EVENT_KEY_PRESS 2
-#define X_EVENT_KEY_release 3
-#define X_EVENT_KEY_EXIT 17
+#define X_EVENT_EXIT 17
 
 #define KEY_ESC 53
-#define KEY_Q 12
 #define KEY_W 13
-#define KEY_E 14
-#define KEY_R 15
 #define KEY_A 0
 #define KEY_S 1
 #define KEY_D 2
+#define KEY_RIGHT 124
+#define KEY_LEFT 123
+
 
 #define CUB_DATA_CORRUPTED 5000
 #define MAP_DATA_CORRUPTED 4000
 #define MEM_ALLOCATE_FAILED 3000
+#define CANT_OPEN_CUB_FILE 2000
+#define ARGUMENT_ERROR 1000
 
 
 #define HORIZOTAL_SIDE 0
@@ -148,10 +149,12 @@ typedef struct s_data
 	t_cam cam;
 	t_draw draw;
 	t_sprite sprite;
+	char *cub_path;
 	int cub_size;
 	int resolution_width;
 	int resolution_height;
 	int crash_report;
+	int bit_map;
 } t_data;
 
 
@@ -205,8 +208,17 @@ void map_allocate(t_data *data);
 void map_sizecheck(t_data *data);
 void map_dfs_free(t_data *data);
 
+
 /*
-// DFS
+// EXIT
+*/
+int exit_win(t_data *data);
+void exit_message(t_data *data);
+void exit_mlx_destroy(t_data *data);
+void exit_process(t_data *data, int errno);
+
+/*
+// DFS MAP VALID CHECK
 */
 void map_dfs(t_data *data);
 int map_search_escape(t_data *data, char **is_visited, int x, int y);
@@ -220,7 +232,8 @@ int is_valid_char(char c);
 void player_dir_set(t_data *data, char c, int row, int col);
 void error_stop(t_data *data, int errno);
 void error_message(t_data *data);
-
+void ft_free(void *target);
+void exit_process(t_data *data, int errno);
 
 void	print_ptr(char **s);
 

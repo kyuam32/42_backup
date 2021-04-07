@@ -6,62 +6,43 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 18:54:33 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/06 21:38:55 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/07 19:31:41 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void error_message(t_data *data)
+char *remove_space(char *str)
 {
-	printf("!!! ERROR NO [%d] !!!\n", data->crash_report);
-	if (data->crash_report >= 5000)
-		printf("CUB_DATA_CORRUPTED\n");
-	else if (data->crash_report >= 4000)
-		printf("MAP_DATA_CORRUPTED\n");
-	else if (data->crash_report >= 3000)
-		printf("MEM_ALLOCATE_FAILED\n");
-}
-
-void error_img_destroy(t_data *data)
-{
-	if (data->texture.EA_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.EA_img.ptr);
-	if (data->texture.WE_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.WE_img.ptr);
-	if (data->texture.SO_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.SO_img.ptr);
-	if (data->texture.NO_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.NO_img.ptr);
-	if (data->texture.SP_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.SP_img.ptr);
-	if (data->img.ptr)
-		mlx_destroy_image(data->system.mlx, data->img.ptr);
-}
-
-void error_stop(t_data *data, int errno)
-{
+	char *ret;
 	int i;
+	int space;
 
-	data->crash_report = errno;
-	if (data->map.map_str)
-		free(data->map.map_str);
-	if (data->map.map_arr)
+	i = 0;
+	space = 0;
+	while (str[i])
 	{
-		i = 0;
-		while (i < data->map.row)
-		{
-			if (data->map.map_arr[i])
-				free(data->map.map_arr[i]);
-			i++;
-		}
-		free(data->map.map_arr);
+		if (str[i] == ' ')
+			space++;
 	}
-	map_dfs_free(data);
-	error_message(data);
-	error_img_destroy(data);
-	if (data->system.win)
-		mlx_destroy_window(data->system.mlx, data->system.win);
+	ret = (char *)malloc(sizeof(char) * (i - space + 1));
+	ret[i - space + 1] = 0;
+	i = 0;
+	while (*str)
+	{
+		if (*str != ' ')
+			ret[i] = *str;
+		str++;
+		i++;
+	}
+	return (ret);
+}
+
+void ft_free(void *target)
+{
+	if (target != NULL)
+		free(target);
+	target = NULL;
 }
 
 void v_put(t_vector *vec, int x_input, int y_input)
@@ -106,5 +87,5 @@ void player_dir_set(t_data *data, char c, int row, int col)
 		data->player.axis.y = row + 0.5;
 	}
 	else
-		data->crash_report = MAP_DATA_CORRUPTED + 3;
+		exit_process(data, MAP_DATA_CORRUPTED + 3);
 }

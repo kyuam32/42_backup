@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 16:09:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/06 21:20:43 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/07 21:10:35 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void rgb_parse(char *str, int *object, t_data *data)
 		if (*str == ',')
 			str++;
 		if ((temp = ft_atoi(str)) > 255 || temp < 0)
-			data->crash_report = CUB_DATA_CORRUPTED + 1;
+			exit_process(data, CUB_DATA_CORRUPTED);
 		else
 		{
 			*object += temp << bit;
@@ -35,7 +35,7 @@ void rgb_parse(char *str, int *object, t_data *data)
 			str++;
 	}
 	if (bit != -8)
-		data->crash_report = CUB_DATA_CORRUPTED + 2;
+		exit_process(data, CUB_DATA_CORRUPTED + 1);
 }
 
 void resolution_parse(char *str, t_data *data)
@@ -47,14 +47,14 @@ void resolution_parse(char *str, t_data *data)
 	while(!(ft_isdigit(*str)))
 		str++;
 		if ((temp = ft_atoi(str)) <= 0)
-			data->crash_report = CUB_DATA_CORRUPTED + 3;
+			exit_process(data, CUB_DATA_CORRUPTED + 2);
 	data->resolution_width = temp;
 	while(ft_isdigit(*str))
 		str++;
 	while(!(ft_isdigit(*str)))
 		str++;
 	if ((temp = ft_atoi(str)) <= 0)
-		data->crash_report = CUB_DATA_CORRUPTED + 4;
+		exit_process(data, CUB_DATA_CORRUPTED + 3);
 	data->resolution_height = temp;
 	mlx_get_screen_size(data->system.mlx, &cur_DP_width, &cur_DP_height);
 	if (data->resolution_width > cur_DP_width)
@@ -77,7 +77,7 @@ void texture_path_parse(char *str, int type, t_data *data)
 	while (str[i])
 		i++;
 	if (ft_memcmp((str + (i - 4)), ".xpm", 4) != 0)
-		data->crash_report = CUB_DATA_CORRUPTED + 5;
+		exit_process(data, CUB_DATA_CORRUPTED + 4);
 	else
 	{
 		if (type == EA)
@@ -92,7 +92,7 @@ void texture_path_parse(char *str, int type, t_data *data)
 			data->texture.path[SP] = ft_strdup(str);
 	}
 	if (!(data->texture.path[type]))
-		data->crash_report = MEM_ALLOCATE_FAILED + 2;
+		exit_process(data, MEM_ALLOCATE_FAILED + 3);
 }
 
 void cub_data_sort(char *line, t_data *data)
@@ -125,13 +125,13 @@ void cub_data_trim(t_data *data)
 
 	data->map.map_str = 0;
 	if ((fd = open("./map.cub", O_RDONLY)) < 0)
-		data->crash_report = CUB_DATA_CORRUPTED + 6;
+		exit_process(data, CANT_OPEN_CUB_FILE);
 	while(get_next_line(fd, &line))
 	{
 		cub_data_sort(line, data);
-		free(line);
+		ft_free(line);
 	}
 	cub_data_sort(line, data);
-	free(line);
+	ft_free(line);
 	close(fd);
 }

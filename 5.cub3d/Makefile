@@ -6,12 +6,12 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 18:59:19 by namkyu            #+#    #+#              #
-#    Updated: 2021/04/06 22:07:29 by namkyu           ###   ########.fr        #
+#    Updated: 2021/04/07 18:52:37 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAG = -Wall -Wextra -Werror -g
+CFLAG = -Wall -Wextra -Werror -g -fsanitize=address
 LIBS = -L ./ -lmlx -framework OpenGL -framework AppKit
 MLX = libmlx.dylib
 LIBFT = libft.a
@@ -26,6 +26,8 @@ FILE = main \
 		map_parse \
 		map_dfs \
 		sprite \
+		exit \
+		allocate \
 		3.GNL/get_next_line \
 		3.GNL/get_next_line_utils \
 
