@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 18:59:19 by namkyu            #+#    #+#              #
-#    Updated: 2021/04/07 18:52:37 by namkyu           ###   ########.fr        #
+#    Updated: 2021/04/08 16:34:51 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ FILE = main \
 		sprite \
 		exit \
 		allocate \
+		bitmap \
 		3.GNL/get_next_line \
 		3.GNL/get_next_line_utils \
 
@@ -35,7 +36,7 @@ SRC = $(addsuffix .c, $(FILE))
 OBJ = $(addsuffix .o, $(FILE))
 
 all : $(NAME)
-	./$(NAME)
+	./$(NAME) map.cub
 
 $(NAME) : $(OBJ) $(MLX) $(LIBFT)
 	$(CC) ${CFLAGS} -o ${NAME} $(OBJ) $(LIBFT) ${LIBS}

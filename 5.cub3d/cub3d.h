@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/07 21:17:59 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/08 21:20:34 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@
 #define KEY_RIGHT 124
 #define KEY_LEFT 123
 
-
 #define CUB_DATA_CORRUPTED 5000
 #define MAP_DATA_CORRUPTED 4000
 #define MEM_ALLOCATE_FAILED 3000
-#define CANT_OPEN_CUB_FILE 2000
+#define CANT_OPEN_FILE 2000
 #define ARGUMENT_ERROR 1000
-
 
 #define HORIZOTAL_SIDE 0
 #define VIRTICAL_SIDE 1
@@ -52,6 +50,31 @@
 #define SO 2
 #define NO 3
 #define SP 4
+
+#pragma pack(push, 1) // 구조체를 1바이트 크기로 정렬
+
+typedef struct s_bmheader // BMP 비트맵 파일 헤더 구조체
+{
+	unsigned char Type1;	   // BMP 파일 매직 넘버
+	unsigned char Type2;	   // BMP 파일 매직 넘버
+	unsigned int fSize;		   // 파일 크기
+	unsigned short Reserved1;  // 예약
+	unsigned short Reserved2;  // 예약
+	unsigned int OffBits;	   // 비트맵 데이터의 시작 위치
+	unsigned int iSize;		   // 현재 구조체의 크기
+	int Width;				   // 비트맵 이미지의 가로 크기
+	int Height;				   // 비트맵 이미지의 세로 크기
+	unsigned short Planes;	   // 사용하는 색상판의 수
+	unsigned short BitCount;   // 픽셀 하나를 표현하는 비트 수
+	unsigned int Compression;  // 압축 방식
+	unsigned int SizeImage;	   // 비트맵 이미지의 픽셀 데이터 크기
+	int XPelsPerMeter;		   // 그림의 가로 해상도(미터당 픽셀)
+	int YPelsPerMeter;		   // 그림의 세로 해상도(미터당 픽셀)
+	unsigned int ClrUsed;	   // 색상 테이블에서 실제 사용되는 색상 수
+	unsigned int ClrImportant; // 비트맵을 표현하기 위해 필요한 색상 인덱스 수
+} t_bmheader;
+
+#pragma pack(pop)
 
 typedef struct s_vector
 {
@@ -157,7 +180,6 @@ typedef struct s_data
 	int bit_map;
 } t_data;
 
-
 /*
 // DATA PARSE
 */
@@ -182,14 +204,14 @@ void draw_sp(t_data *data);
 // RAYCAST
 */
 
-void ray_cast(t_data *data,void (*draw_target)(t_data *));
-void ray_distance(t_data *data, double x_dir, double y_dir);
+void ray_cast(t_data *data, void (*draw_target)(t_data *));
+// void ray_distance(t_data *data, double x_dir, double y_dir);
+void ray_distance(t_data *data, t_vector *dir);
 void ray_initalize(t_data *data);
 void ray_sprite(t_data *data, double x_dir, double y_dir);
 
 void sprite_rad(t_data *data, int x, int y);
 void sprite_ray_rad(t_data *data, int x, int y);
-
 
 /*
 // CREATE MINI_MAP
@@ -202,12 +224,11 @@ void m_map_player(t_data *data);
 /*
 // CREATE MAP_STR
 */
-void map_parse(char *line,t_data *data);
+void map_parse(char *line, t_data *data);
 void map_create(t_data *data);
 void map_allocate(t_data *data);
 void map_sizecheck(t_data *data);
 void map_dfs_free(t_data *data);
-
 
 /*
 // EXIT
@@ -224,6 +245,11 @@ void map_dfs(t_data *data);
 int map_search_escape(t_data *data, char **is_visited, int x, int y);
 
 /*
+// BITMAP
+*/
+void bitmap_header(t_bmheader *header, int width, int height);
+void bitmap_create(t_data *data);
+/*
 // UTILS
 */
 
@@ -235,7 +261,7 @@ void error_message(t_data *data);
 void ft_free(void *target);
 void exit_process(t_data *data, int errno);
 
-void	print_ptr(char **s);
+void print_ptr(char **s);
 
 /*
 // MAIN
