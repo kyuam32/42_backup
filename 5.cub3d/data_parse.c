@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 16:09:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/08 21:20:02 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/09 15:08:04 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,16 @@ void texture_path_parse(char *str, int type, t_data *data)
 		exit_process(data, CUB_DATA_CORRUPTED + 4);
 	else
 	{
-		if (type == EA)
-			data->texture.path[EA] = ft_strdup(str);
-		else if (type == WE)
-			data->texture.path[WE] = ft_strdup(str);
-		else if (type == SO)
-			data->texture.path[SO] = ft_strdup(str);
-		else if (type == NO)
-			data->texture.path[NO] = ft_strdup(str);
-		else if (type == SP)
-			data->texture.path[SP] = ft_strdup(str);
+		if (type == EA_P)
+			data->texture.path[EA_P] = ft_strdup(str);
+		else if (type == WE_P)
+			data->texture.path[WE_P] = ft_strdup(str);
+		else if (type == SO_P)
+			data->texture.path[SO_P] = ft_strdup(str);
+		else if (type == NO_P)
+			data->texture.path[NO_P] = ft_strdup(str);
+		else if (type == SP_P)
+			data->texture.path[SP_P] = ft_strdup(str);
 	}
 	if (!(data->texture.path[type]))
 		exit_process(data, MEM_ALLOCATE_FAILED + 3);
@@ -101,15 +101,15 @@ void cub_data_sort(char *line, t_data *data)
 	if (line[0] == 'R' && line[1] == ' ')
 		resolution_parse(line, data);
 	else if (line[0] == 'E' && line[1] == 'A')
-		texture_path_parse(line + 2, EA, data);
+		texture_path_parse(line + 2, EA_P, data);
 	else if (line[0] == 'W' && line[1] == 'E')
-		texture_path_parse(line + 2, WE, data);
+		texture_path_parse(line + 2, WE_P, data);
 	else if (line[0] == 'S' && line[1] == 'O')
-		texture_path_parse(line + 2, SO, data);
+		texture_path_parse(line + 2, SO_P, data);
 	else if (line[0] == 'N' && line[1] == 'O')
-		texture_path_parse(line + 2, NO, data);
+		texture_path_parse(line + 2, NO_P, data);
 	else if (line[0] == 'S' && line[1] == ' ')
-		texture_path_parse(line + 1, SP, data);
+		texture_path_parse(line + 1, SP_P, data);
 	else if (line[0] == 'F' && line[1] == ' ')
 		rgb_parse(line + 1, &data->texture.floor, data);
 	else if (line[0] == 'C' && line[1] == ' ')

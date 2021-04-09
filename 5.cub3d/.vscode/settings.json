@@ -20,6 +20,7 @@
 		"__hash_table": "cpp",
 		"type_traits": "cpp",
 		"version": "cpp",
-		"complex": "c"
+		"complex": "c",
+		"new": "cpp"
 	}
 }

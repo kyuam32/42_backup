@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 20:42:41 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/08 22:10:40 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/09 15:30:20 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	sprite_hit(t_data *data, t_vector *hit, int x, int y)
 	t_vector	*cur;
 
 	cur = &data->player.axis;
-	v_put(hit, ((cur->x > x) ? x + 1 : x), ((cur->y > y) ? y + 1 : y));
+	v_iput(hit, ((cur->x > x) ? x + 1 : x), ((cur->y > y) ? y + 1 : y));
 	if (data->sprite.sp_side == VIRTICAL_SIDE)
 		hit->y = (data->player.axis.y + \
 				(data->sprite.sp_dist * data->cam.dir.y));

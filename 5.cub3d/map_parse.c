@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:22:46 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/08 21:21:01 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/09 14:13:32 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void map_sizecheck(t_data *data)
 			data->map.col = (data->map.col < col) ? col : data->map.col;
 			col = 0;
 		}
-		else if (is_valid_char(data->map.map_str[i]))
+		else if (ft_strchr("012 EWSN", data->map.map_str[i]))
 			col++;
 		else
 			exit_process(data, MAP_DATA_CORRUPTED);

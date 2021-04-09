@@ -6,17 +6,17 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 18:54:33 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/07 19:31:41 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/09 19:15:28 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char *remove_space(char *str)
+char	*remove_space(char *str)
 {
-	char *ret;
-	int i;
-	int space;
+	char	*ret;
+	int		i;
+	int		space;
 
 	i = 0;
 	space = 0;
@@ -38,51 +38,38 @@ char *remove_space(char *str)
 	return (ret);
 }
 
-void ft_free(void *target)
+void	ft_free(void *target)
 {
 	if (target != NULL)
 		free(target);
 	target = NULL;
 }
 
-void v_put(t_vector *vec, int x_input, int y_input)
+void	v_iput(t_vector *vec, int x_input, int y_input)
 {
 	vec->x = (double)x_input;
 	vec->y = (double)y_input;
 }
 
-int is_valid_char(char c)
+void	v_dput(t_vector *vec, double x_input, double y_input)
 {
-	if (c == '0' || c == '1' || c == '2' || c == 'E' || c == 'W' || c == 'S' || c == 'N' || c == ' ')
-		return (1);
-	return (0);
+	vec->x = x_input;
+	vec->y = y_input;
 }
 
-void player_dir_set(t_data *data, char c, int row, int col)
+void	player_dir_set(t_data *data, char c, int row, int col)
 {
 	if (data->player.locate == 0)
 	{
 		data->player.locate = c;
 		if (c == 'E')
-		{
-			data->player.dir.x = 1;
-			data->player.dir.y = 0;
-		}
+			v_iput(&data->player.dir, 1, 0);
 		else if (c == 'W')
-		{
-			data->player.dir.x = -1;
-			data->player.dir.y = 0;
-		}
+			v_iput(&data->player.dir, -1, 0);
 		else if (c == 'S')
-		{
-			data->player.dir.x = 0;
-			data->player.dir.y = 1;
-		}
+			v_iput(&data->player.dir, 0, 1);
 		else if (c == 'N')
-		{
-			data->player.dir.x = 0;
-			data->player.dir.y = -1;
-		}
+			v_iput(&data->player.dir, 0, -1);
 		data->player.axis.x = col + 0.5;
 		data->player.axis.y = row + 0.5;
 	}

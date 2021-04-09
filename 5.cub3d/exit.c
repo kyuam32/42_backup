@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 13:13:18 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/08 15:49:51 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/09 15:09:09 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void exit_message(t_data *data)
 
 void exit_mlx_destroy(t_data *data)
 {
-	if (data->texture.EA_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.EA_img.ptr);
-	if (data->texture.WE_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.WE_img.ptr);
-	if (data->texture.SO_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.SO_img.ptr);
-	if (data->texture.NO_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.NO_img.ptr);
-	if (data->texture.SP_img.ptr)
-		mlx_destroy_image(data->system.mlx, data->texture.SP_img.ptr);
+	if (data->texture.EA.ptr)
+		mlx_destroy_image(data->system.mlx, data->texture.EA.ptr);
+	if (data->texture.WE.ptr)
+		mlx_destroy_image(data->system.mlx, data->texture.WE.ptr);
+	if (data->texture.SO.ptr)
+		mlx_destroy_image(data->system.mlx, data->texture.SO.ptr);
+	if (data->texture.NO.ptr)
+		mlx_destroy_image(data->system.mlx, data->texture.NO.ptr);
+	if (data->texture.SP.ptr)
+		mlx_destroy_image(data->system.mlx, data->texture.SP.ptr);
 	if (data->img.ptr)
 		mlx_destroy_image(data->system.mlx, data->img.ptr);
 	if (data->system.win)

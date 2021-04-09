@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 18:59:19 by namkyu            #+#    #+#              #
-#    Updated: 2021/04/08 16:34:51 by namkyu           ###   ########.fr        #
+#    Updated: 2021/04/09 15:36:06 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,11 @@ LIBFT = libft.a
 NAME = cub3D
 FILE = main \
 		utils \
+		keypress \
 		ray_cast \
-		draw_pixcel \
+		ray_calculate \
+		draw_window \
+		draw_basic \
 		mini_map \
 		data_parse \
 		map_parse \

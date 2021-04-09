@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:38:54 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/07 12:38:19 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/09 15:30:19 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void m_map_grid(t_data *data)
 	i = 0;
 	while (i <= map->col)
 	{
-		v_put(&(data->draw.start), i * map->cub_width, map->h_offset);
-		v_put(&(data->draw.end), i * map->cub_width, map->h_offset + map->row * map->cub_height);
+		v_iput(&(data->draw.start), i * map->cub_width, map->h_offset);
+		v_iput(&(data->draw.end), i * map->cub_width, map->h_offset + map->row * map->cub_height);
 		data->draw.color = 0x000000;
 		draw_line(data);
 		i++;
@@ -30,8 +30,8 @@ void m_map_grid(t_data *data)
 	i = 0;
 	while (i < map->row)
 	{
-		v_put(&(data->draw.start), 0, map->h_offset + i * map->cub_height);
-		v_put(&(data->draw.end), map->col * map->cub_width, map->h_offset + i * map->cub_height);
+		v_iput(&(data->draw.start), 0, map->h_offset + i * map->cub_height);
+		v_iput(&(data->draw.end), map->col * map->cub_width, map->h_offset + i * map->cub_height);
 		data->draw.color = 0x000000;
 		draw_line(data);
 		i++;
