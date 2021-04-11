@@ -21,6 +21,8 @@
 		"type_traits": "cpp",
 		"version": "cpp",
 		"complex": "c",
-		"new": "cpp"
+		"new": "cpp",
+		"cub3d.h": "c",
+		"libft.h": "c"
 	}
 }

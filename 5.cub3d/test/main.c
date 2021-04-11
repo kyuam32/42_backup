@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "../1.libft/libft.h"
+# include "../3.GNL/get_next_line.h"
 
 // int main(int argc, char **argv)
 // {
@@ -14,31 +16,48 @@
 // 	}
 // }
 
-static void
-	set_int_in_char(unsigned char *start, int value)
+// static void
+// 	set_int_in_char(unsigned char *start, int value)
+// {
+// 	start[0] = (unsigned char)(value);
+// 	start[1] = (unsigned char)(value >> 8);
+// 	start[2] = (unsigned char)(value >> 16);
+// 	start[3] = (unsigned char)(value >> 24);
+// }
+
+// int main()
+// {
+// 	int				temp;
+// 	unsigned char	bmpfileheader[4];
+
+
+// 	temp = 0b00001111000001110000001100000001;
+// 	bmpfileheader[0] = 0;
+// 	bmpfileheader[1] = 0;
+// 	bmpfileheader[2] = 0;
+// 	bmpfileheader[3] = 0;
+
+// 	set_int_in_char(bmpfileheader, temp);
+
+// 	printf("1 : %d\n", bmpfileheader[0]);
+// 	printf("2 : %d\n", bmpfileheader[1]);
+// 	printf("3 : %d\n", bmpfileheader[2]);
+// 	printf("4 : %d\n", bmpfileheader[3]);
+// }
+
+int main ()
 {
-	start[0] = (unsigned char)(value);
-	start[1] = (unsigned char)(value >> 8);
-	start[2] = (unsigned char)(value >> 16);
-	start[3] = (unsigned char)(value >> 24);
-}
+	int fd;
+	char *line;
 
-int main()
-{
-	int				temp;
-	unsigned char	bmpfileheader[4];
+	fd = open("../map.cub", O_RDONLY);
+	while (get_next_line(fd, &line))
+	{
+		if (line[0] == 0)
+			printf("!");
+		// printf("%lu", sizeof(line));
+	}
+	if (line[0] == 0)
+		printf("!");
 
-
-	temp = 0b00001111000001110000001100000001;
-	bmpfileheader[0] = 0;
-	bmpfileheader[1] = 0;
-	bmpfileheader[2] = 0;
-	bmpfileheader[3] = 0;
-
-	set_int_in_char(bmpfileheader, temp);
-
-	printf("1 : %d\n", bmpfileheader[0]);
-	printf("2 : %d\n", bmpfileheader[1]);
-	printf("3 : %d\n", bmpfileheader[2]);
-	printf("4 : %d\n", bmpfileheader[3]);
 }

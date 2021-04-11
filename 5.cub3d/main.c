@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/09 15:35:36 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/10 19:18:51 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		main(int argc, char **argv)
 
 	ft_memset(&data, 0, sizeof(t_data));
 	input_check(&data, argc, argv);
-	cub_data_trim(&data);
+	parse_cub_data(&data);
 	map_create(&data);
 	allocate_system(&data);
 	allocate_texture(&data);
@@ -54,6 +54,7 @@ int		main(int argc, char **argv)
 	{
 		ray_initalize(&data);
 		bitmap_create(&data);
+		exit_process(&data, 0);
 	}
 	mlx_hook(data.system.win, X_EVENT_KEY_PRESS, 0, &key_press, &data);
 	mlx_hook(data.system.win, X_EVENT_EXIT, 0, &exit_win, &data);
