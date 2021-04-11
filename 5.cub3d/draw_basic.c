@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 14:35:31 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/10 13:08:01 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/11 15:53:59 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	draw_line(t_data *data)
 	step = (fabs(delta.x) > fabs(delta.y)) ? fabs(delta.x) : fabs(delta.y);
 	delta.x /= step;
 	delta.y /= step;
-	while (fabs(end.x - start.x) > 0.5 || fabs(end.y - start.y) > 0.5)
+	while (fabs(end.x - start.x) >= 1 || fabs(end.y - start.y) >= 1)
 	{
 		data->img.data[(int)floor(start.y) * \
 			(data->img.size_l / 4) + (int)floor(start.x)] = data->draw.color;

@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:20:07 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/10 18:28:25 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/11 14:11:52 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		map_search_escape(t_data *data, char **is_visited, int x, int y)
 
 	if (x == 0 || y == 0 || x == data->map.col - 1 || \
 		y == data->map.row - 1 || data->map.map_arr[y][x] == ' ')
-		exit_process(data, MAP_DATA_CORRUPTED + 4);
+		exit_process(data, MAP_DATA_CORRUPTED);
 	is_visited[y][x] = '1';
 	i = -1;
 	while (i <= 1)
@@ -63,13 +63,13 @@ void	map_dfs(t_data *data)
 
 	i = 0;
 	if (!(data->map.dfs = (char **)malloc(sizeof(char *) * data->map.row + 1)))
-		exit_process(data, MEM_ALLOCATE_FAILED + 2);
+		exit_process(data, MEM_ALLOCATE_FAILED);
 	while (i < data->map.row)
 	{
 		j = 0;
 		if (!(data->map.dfs[i] = \
 				(char *)malloc(sizeof(char) * data->map.col + 1)))
-			exit_process(data, MEM_ALLOCATE_FAILED + 2);
+			exit_process(data, MEM_ALLOCATE_FAILED);
 		data->map.dfs[i][data->map.col] = 0;
 		while (j < data->map.col)
 		{

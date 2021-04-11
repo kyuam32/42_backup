@@ -6,19 +6,19 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:41:44 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/10 18:26:08 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/11 15:35:04 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_img	*draw_texture_path(t_data *data, int *wall_x)
+t_img	*draw_texture_path(t_data *data, double *wall_x)
 {
 	if (data->draw.side == VIRTICAL_SIDE)
 	{
 		if (data->cam.dir.x < 0)
 		{
-			*wall_x = 64 - *wall_x;
+			*wall_x = 64.0 - *wall_x;
 			return (&data->texture.we);
 		}
 		else
@@ -30,7 +30,7 @@ t_img	*draw_texture_path(t_data *data, int *wall_x)
 			return (&data->texture.no);
 		else
 		{
-			*wall_x = 64 - *wall_x;
+			*wall_x = 64.0 - *wall_x;
 			return (&data->texture.so);
 		}
 	}
@@ -42,7 +42,7 @@ void	draw_texture(t_data *data, int x, int y, int height)
 	t_img		*img;
 	double		repeat;
 	double		offset;
-	int			wall_x;
+	double		wall_x;
 	int			i;
 
 	offset = 0;
@@ -62,7 +62,8 @@ void	draw_texture(t_data *data, int x, int y, int height)
 	img = draw_texture_path(data, &wall_x);
 	while (++i < height)
 		data->img.data[(int)(y + i) * data->img.size_l / 4 + x] = \
-			img->data[(int)(repeat * i + offset) * img->size_l / 4 + wall_x];
+			img->data[(int)(repeat * i + offset) * img->size_l / 4 + \
+																(int)wall_x];
 }
 
 void	draw_sprite(t_data *data, int x, int y, int height)
@@ -70,7 +71,7 @@ void	draw_sprite(t_data *data, int x, int y, int height)
 	t_img		*img;
 	double		repeat;
 	double		offset;
-	int			wall_x;
+	double		wall_x;
 	int			i;
 
 	i = -1;
@@ -82,14 +83,14 @@ void	draw_sprite(t_data *data, int x, int y, int height)
 		repeat = 1.0 * 64 * data->sprite.sp_adj_dist / height;
 	}
 	img = &data->texture.sp;
-	wall_x = 64 * data->sprite.sp_rad;
+	wall_x = 64.0 * data->sprite.sp_rad;
 	while (++i < height)
 	{
 		if (img->data[(int)(repeat * i + offset) * \
-				img->size_l / 4 + wall_x] != -16777216)
+				img->size_l / 4 + (int)wall_x] != -16777216)
 			data->img.data[(int)(y + i) * data->img.size_l / 4 + x] = \
 					img->data[(int)(repeat * i + offset) * \
-											img->size_l / 4 + wall_x];
+											img->size_l / 4 + (int)wall_x];
 	}
 }
 

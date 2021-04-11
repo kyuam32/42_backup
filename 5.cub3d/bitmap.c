@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 21:50:31 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/09 21:18:53 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/11 14:10:49 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	bitmap_create(t_data *data)
 	int			j;
 
 	if ((fd = open("screenshot.bmp", O_RDWR | O_TRUNC | O_CREAT, 0666)) < 0)
-		exit_process(data, CANT_OPEN_FILE + 1);
+		exit_process(data, CANT_OPEN_FILE);
 	bitmap_header(&header, data);
 	write(fd, &header, 54);
 	i = -1;

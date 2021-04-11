@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:09 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/10 19:18:51 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/11 14:11:10 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	input_check(t_data *data, int argc, char **argv)
 			if (ft_strncmp(argv[2], "--save", ft_strlen(argv[2])) == 0)
 				data->bit_map = 1;
 			else
-				exit_process(data, ARGUMENT_ERROR + 1);
+				exit_process(data, ARGUMENT_ERROR);
 		}
 	}
 	else

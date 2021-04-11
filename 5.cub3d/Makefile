@@ -6,12 +6,12 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 18:59:19 by namkyu            #+#    #+#              #
-#    Updated: 2021/04/10 18:57:34 by namkyu           ###   ########.fr        #
+#    Updated: 2021/04/11 16:13:19 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAG = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAG = -Wall -Wextra -Werror
 LIBS = -L ./ -lmlx -framework OpenGL -framework AppKit
 
 NAME = cub3D
@@ -41,7 +41,7 @@ OBJ = $(addsuffix .o, $(FILE))
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(MLX) $(LIBFT)
-	$(CC) ${CFLAGS} -o ${NAME} $(OBJ) $(LIBFT) ${LIBS}
+	$(CC) ${CFLAGS} -o ${NAME} $(OBJ) $(LIBFT) $(MLX) ${LIBS}
 
 $(MLX) :
 	$(MAKE) -C ./new_minilbx
@@ -62,4 +62,3 @@ fclean : clean
 re : fclean all
 
 .PHONY : all clean fclean re
-.SILENT : $(MLX)

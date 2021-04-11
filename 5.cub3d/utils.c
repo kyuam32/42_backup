@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 18:54:33 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/10 18:36:41 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/11 14:49:34 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,14 @@ void	v_dput(t_vector *vec, double x_input, double y_input)
 {
 	vec->x = x_input;
 	vec->y = y_input;
+}
+
+int		skip_space(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:33:13 by namkyu            #+#    #+#             */
-/*   Updated: 2021/04/10 21:22:02 by namkyu           ###   ########.fr       */
+/*   Updated: 2021/04/11 15:26:09 by namkyu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # define R_H 6
 # define C_F 7
 # define C_C 8
-
+# define MAP_CHECK 9
 
 # pragma pack(push, 1)
 
@@ -177,7 +177,7 @@ typedef struct		s_data
 	t_img			img;
 	t_cam			cam;
 	char			*cub_path;
-	char			check[9];
+	char			check[10];
 	int				cub_size;
 	int				resolution_width;
 	int				resolution_height;
@@ -203,6 +203,7 @@ void				ft_free(void *target);
 void				print_ptr(char **s);
 void				v_iput(t_vector *vec, int x_input, int y_input);
 void				v_dput(t_vector *vec, double x_input, double y_input);
+int					skip_space(char *str);
 
 /*
 ** sprite
@@ -237,11 +238,10 @@ void				ray_cal_distance(t_data *data, t_vector *delta, \
 ** parse_cub_data
 */
 
-void				parse_rgb(char *str, int *object, t_data *data, int *map);
-void				parse_resolution(char *str, t_data *data, int *map);
-void				parse_texture_path(char *str, int type, \
-										t_data *data, int *map);
-void				parse_info(char *line, t_data *data, int *map);
+void				parse_rgb(char *str, int type, t_data *data, int *object);
+void				parse_resolution(char *str, t_data *data);
+void				parse_texture_path(char *str, int type, t_data *data);
+void				parse_info(char *line, t_data *data);
 void				parse_cub_data(t_data *data);
 
 /*
@@ -292,7 +292,7 @@ void				exit_process(t_data *data, int errno);
 ** draw_window
 */
 
-t_img				*draw_texture_path(t_data *data, int *wall_x);
+t_img				*draw_texture_path(t_data *data, double *wall_x);
 void				draw_texture(t_data *data, int x, int y, int height);
 void				draw_sprite(t_data *data, int x, int y, int height);
 int					draw_convert_height(t_data *data, double dist);
