@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/20 14:11:29 by namkyu            #+#    #+#              #
-#    Updated: 2021/04/20 16:56:04 by namkyu           ###   ########.fr        #
+#    Updated: 2021/04/21 17:40:29 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,14 +31,15 @@ RUN apt-get -y install php-mbstring
 RUN apt-get -y install mariadb-server
 
 # UTLIS
-RUN apt-get -y install curl
 RUN apt-get -y install vim
-RUN apt-get -y install wget
+
+# AUTOINDEX FLAG
+ENV AUTOIDX 1
 
 WORKDIR /setup
-COPY ./wordpress wordpress
-COPY ./phpMyAdmin phpMyAdmin
-COPY ./src/default default
-COPY ./src/run.sh run.sh
+COPY ./srcs/wordpress wordpress
+COPY ./srcs/phpMyAdmin phpMyAdmin
+COPY ./srcs/default default
+COPY ./srcs/run.sh run.sh
 
 CMD bash run.sh

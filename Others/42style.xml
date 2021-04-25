@@ -1,0 +1,23 @@
+<code_scheme name="Default" version="173">
+  <Objective-C>
+    <option name="NAMESPACE_BRACE_PLACEMENT" value="5" />
+    <option name="FUNCTION_BRACE_PLACEMENT" value="5" />
+    <option name="BLOCK_BRACE_PLACEMENT" value="5" />
+    <option name="FUNCTION_PARAMETERS_ALIGN_MULTILINE" value="false" />
+    <option name="FUNCTION_PARAMETERS_NEW_LINE_AFTER_LPAR" value="true" />
+    <option name="SUPERCLASS_LIST_ALIGN_MULTILINE" value="false" />
+    <option name="SPACE_BEFORE_NAMESPACE_LBRACE" value="false" />
+  </Objective-C>
+  <codeStyleSettings language="ObjectiveC">
+    <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false" />
+    <option name="BRACE_STYLE" value="5" />
+    <option name="CLASS_BRACE_STYLE" value="5" />
+    <option name="ELSE_ON_NEW_LINE" value="true" />
+    <option name="SPACE_AFTER_TYPE_CAST" value="false" />
+    <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="false" />
+    <option name="WRAP_ON_TYPING" value="0" />
+    <indentOptions>
+      <option name="USE_TAB_CHARACTER" value="true" />
+    </indentOptions>
+  </codeStyleSettings>
+</code_scheme>
