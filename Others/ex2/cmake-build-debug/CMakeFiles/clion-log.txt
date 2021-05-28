@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /Users/namkyu/1_about_devs/42seoul_nlee/Others/ex2 Select CMakeLists.txt

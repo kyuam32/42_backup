@@ -1,0 +1,6 @@
+ # depends_on:
+ # - wordpress	  
+
+   build: 
+   context: ./requirements/nginx/
+   dockerfile: ./requirement/nginx/Dokckerfile

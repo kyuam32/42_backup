@@ -1,0 +1,50 @@
+version: "3.0"
+
+services:
+ webserver:
+  depends_on:
+   - wordpress-php
+  build: ./requirements/nginx/
+  container_name: webserver
+  ports:
+   - "443:443"
+  restart: unless-stopped
+  volumes:
+   - wordpress:/var/www/wordpress
+  networks:
+   - app-network
+
+ wordpress-php:
+  depends_on:
+   - mariadb
+  build: ./requirements/wordpress/
+  container_name: wordpress-php
+  env_file: .env
+  ports:
+   - "9000"
+  restart: unless-stopped
+  volumes:
+   - wordpress:/var/www/wordpress
+  networks:
+   - app-network
+
+ mariadb:
+  build:
+   context: ./requirements/mariadb/
+  env_file: .env
+  container_name: mariadb
+  ports:
+   - "3306"
+  volumes:
+   - dbdata:/var/lib/mysql
+  restart: unless-stopped
+  networks:
+   - app-network
+
+networks:
+ app-network:
+  driver : bridge
+
+volumes:
+ dbdata:
+ wordpress:
