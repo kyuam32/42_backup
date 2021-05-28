@@ -22,20 +22,27 @@
 /** The name of the database for WordPress */
 // define( 'DB_NAME', 'wordpress' );
 define( 'DB_NAME', getenv('MYSQL_DB_NAME'));
+// define( 'DB_NAME', $_ENV["MYSQL_DB_NAME"]);
 // define( 'DB_NAME', getenv('MYSQL_DB_NAME', true) ?: getenv('MYSQL_DB_NAME'))
+// define( 'DB_NAME', getenv_docker('MYSQL_DB_NAME', 'MYSQL_DB_NAME') );
 
 /** MySQL database username */
 // define( 'DB_USER', 'nlee' );
 define( 'DB_USER', getenv('MYSQL_USER'));
+// define( 'DB_USER', $_ENV["MYSQL_USER"]);
 // define( 'DB_USER', getenv('MYSQL_USER', true) ?: getenv('MYSQL_USER'))
+// define( 'DB_USER', getenv_docker('MYSQL_USER', 'MYSQL_USE') );
 
 /** MySQL database password */
 // define( 'DB_PASSWORD', 'nlee' );
 define( 'DB_PASSWORD', getenv('MYSQL_PASSWORD'));
+// define( 'DB_PASSWORD', $_ENV["MYSQL_PASSWORD"]);
 // define( 'DB_PASSWORD', getenv('MYSQL_PASSWORD', true) ?: getenv('MYSQL_PASSWORD'))
+// define( 'DB_PASSWORD', getenv_docker('MYSQL_PASSWORD', 'MYSQL_PASSWORD') );
 
 /** MySQL hostname */
 define( 'DB_HOST', 'mariadb:3306');
+// define( 'DB_HOST', '$_ENV["MYSQL_PASSWORD"]');
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
