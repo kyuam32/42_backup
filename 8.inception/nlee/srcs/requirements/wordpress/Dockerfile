@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 19:06:46 by namkyu            #+#    #+#              #
-#    Updated: 2021/05/28 13:32:03 by namkyu           ###   ########.fr        #
+#    Updated: 2021/05/29 18:21:36 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ RUN apt-get -y upgrade
 RUN apt-get -y install php7.3-fpm
 RUN apt-get -y install php-mysql
 RUN apt-get -y install php-mbstring
+RUN apt-get install -y curl
 
 RUN mkdir -p /var/www/wordpress
 COPY ./pool.d/www.conf ./etc/php/7.3/fpm/pool.d/www.conf

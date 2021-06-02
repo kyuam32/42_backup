@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/namkyu/1_about_devs/42seoul_nlee/Others/exam03-paint/main.c
+stdio.h
+-
+unistd.h
+-
+string.h
+-
+stdlib.h
+-
+

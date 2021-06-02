@@ -1,10 +1,11 @@
 version: "3.0"
 
 services:
- webserver:
+ nginx:
   depends_on:
    - wordpress-php
   build: ./requirements/nginx/
+  image: nginx:nlee
   container_name: webserver
   ports:
    - "443:443"
@@ -18,6 +19,7 @@ services:
   depends_on:
    - mariadb
   build: ./requirements/wordpress/
+  image: wordpress-php:nlee
   container_name: wordpress-php
   env_file: .env
   ports:
@@ -31,6 +33,7 @@ services:
  mariadb:
   build:
    context: ./requirements/mariadb/
+  image: mariadb:nlee
   env_file: .env
   container_name: mariadb
   ports:
