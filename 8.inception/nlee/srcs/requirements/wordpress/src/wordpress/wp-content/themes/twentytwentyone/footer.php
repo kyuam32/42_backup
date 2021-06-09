@@ -61,6 +61,9 @@
 					'<a href="' . esc_url( __( 'https://wordpress.org/', 'twentytwentyone' ) ) . '">WordPress</a>'
 				);
 				?>
+				<br>
+			<a href="/wp-admin/">wp_admin</a><br>
+			<a href="/adminer.php">adminer</a><br>
 			</div><!-- .powered-by -->
 
 		</div><!-- .site-info -->

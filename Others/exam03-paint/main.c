@@ -21,9 +21,27 @@ typedef struct s_canvas
 	char c;
 }				t_canvas;
 
-int print_err(void)
+int print_arg_err(void)
 {
+	int i;
+
+	i = 0;
 	write(1,"Error: argument\n", 16);
+	return (1);
+}
+
+int print_oper_err(t_canvas *canvas)
+{
+	int i;
+
+	i = 0;
+	write(1,"Error: Operation file corrupted\n", 32);
+	while (canvas->pix[i])
+	{
+		free(canvas->pix[i]);
+		i++;
+	}
+	free(canvas->pix);
 	return (1);
 }
 
@@ -49,9 +67,9 @@ void input_canvas(t_obj *obj, t_canvas *canvas)
 			(j > obj->x && j < obj->x + obj->w) && \
 			(i > obj->y && i < obj->y + obj->h))
 				canvas->pix[i][j] = obj->c;
-			i++;
+			j++;
 		}
-		j++;
+		i++;
 	}
 }
 
@@ -62,13 +80,13 @@ int parse_object_is_valid(FILE *fp, t_canvas *canvas)
 
 	while ((scan = fscanf(fp, "%c %f %f %f %f %c\n", &obj.type, &obj.x, &obj.y, &obj.w, &obj.h, &obj.c)) == 6)
 	{
-		if ((obj.w <= 0 || obj.w > (float)canvas->w) || \
-			(obj.h <= 0 || obj.h > (float)canvas->h) || \
+		if ((obj.w <= 0 ) || \
+			(obj.h <= 0 ) || \
 			!((obj.type == 'r') || (obj.type == 'R')))
 			return (0);
 		input_canvas(&obj, canvas);
 	}
-	if (scan = EOF)
+	if (scan == EOF)
 		return (1);
 	return (0);
 }
@@ -118,13 +136,13 @@ int main(int ac, char **av)
 
 	memset(&canvas, 0, sizeof(canvas));
 	if (ac != 2)
-		return (print_err());
+		return (print_arg_err());
 	if (!(fp = fopen(av[1], "r")))
-		return (print_err());
+		return (print_oper_err(&canvas));
 	if (!(parse_canvas_is_valid(fp, &canvas)))
-		return (print_err());
+		return (print_oper_err(&canvas));
 	if (!(parse_object_is_valid(fp, &canvas)))
-		return (print_err());
+		return (print_oper_err(&canvas));
 	print_canvas(&canvas);
-	return (1);
+	return (0);
 }

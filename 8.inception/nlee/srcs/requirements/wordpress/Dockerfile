@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 19:06:46 by namkyu            #+#    #+#              #
-#    Updated: 2021/05/29 18:21:36 by namkyu           ###   ########.fr        #
+#    Updated: 2021/06/08 14:34:28 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ RUN apt-get install -y curl
 RUN mkdir -p /var/www/wordpress
 COPY ./pool.d/www.conf ./etc/php/7.3/fpm/pool.d/www.conf
 COPY ./src/wordpress /var/www/wordpress
+COPY ./src/adminer.php /var/www/wordpress/adminer.php
 
 COPY ./config/wp-config.php /var/www/wordpress
 COPY ./tools/entrypoint.sh ./entrypoint.sh
