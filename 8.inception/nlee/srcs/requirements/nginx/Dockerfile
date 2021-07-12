@@ -6,22 +6,24 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 19:06:46 by namkyu            #+#    #+#              #
-#    Updated: 2021/05/29 18:21:32 by namkyu           ###   ########.fr        #
+#    Updated: 2021/06/15 16:20:50 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM debian:buster
 
 # APT UPDATE
+ENV MY_URL=nlee.42.fr
 RUN apt-get -y update
 RUN apt-get -y upgrade
-
+RUN apt-get -y install gettext-base
 RUN apt-get -y install nginx
 RUN apt-get -y install openssl
 RUN mkdir -p /var/www/wordpress
 
 COPY ./tools/run.sh run.sh
-COPY ./config/default ./etc/nginx/sites-available/default
-
+COPY ./config/default default
 RUN bash run.sh
-CMD ["nginx", "-g", "daemon off;"]
+RUN envsubst < ./default > /etc/nginx/sites-available/default
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

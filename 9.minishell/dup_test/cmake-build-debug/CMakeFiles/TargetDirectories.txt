@@ -1,0 +1,3 @@
+/Users/namkyu/1_about_devs/42seoul_nlee/9.minishell/dup_test/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/namkyu/1_about_devs/42seoul_nlee/9.minishell/dup_test/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/namkyu/1_about_devs/42seoul_nlee/9.minishell/dup_test/cmake-build-debug/CMakeFiles/dup_test.dir

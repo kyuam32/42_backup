@@ -3,7 +3,7 @@
 server {
 	listen 443 ssl;
 
-	server_name  nlee.42.fr;
+	server_name ${MY_URL};
 
 	ssl_protocols TLSv1.3;
 	ssl_certificate /etc/ssl/certs/tls_nlee.crt;
@@ -22,9 +22,9 @@ server {
 	}
 
 	location ~ \.php$ {
-		#include fastcgi_params;
 		include fastcgi.conf;
 		fastcgi_pass wordpress-php:9000;
+		#include fastcgi_params;
 		#fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 	}
 }

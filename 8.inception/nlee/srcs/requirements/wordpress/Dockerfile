@@ -6,7 +6,7 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 19:06:46 by namkyu            #+#    #+#              #
-#    Updated: 2021/06/08 14:34:28 by namkyu           ###   ########.fr        #
+#    Updated: 2021/06/15 14:53:38 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,6 @@ FROM debian:buster
 
 RUN apt-get -y update
 RUN apt-get -y upgrade
-
-# ARG MYSQL_USER
-# ARG MYSQL_PASSWORD
-# ARG MYSQL_DB_NAME
 
 RUN apt-get -y install php7.3-fpm
 RUN apt-get -y install php-mysql
@@ -33,4 +29,4 @@ COPY ./config/wp-config.php /var/www/wordpress
 COPY ./tools/entrypoint.sh ./entrypoint.sh
 RUN chmod 775 ./entrypoint.sh
 
-CMD ./entrypoint.sh
+ENTRYPOINT ["./entrypoint.sh"]

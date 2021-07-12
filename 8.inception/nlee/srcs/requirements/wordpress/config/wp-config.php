@@ -40,6 +40,14 @@ define( 'DB_CHARSET', 'utf8' );
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
+define('WP_CACHE', true);
+define( 'WP_REDIS_HOST', 'redis_cache' );
+define( 'WP_REDIS_PORT', 6379 );
+define( 'WP_REDIS_TIMEOUT', 1 );
+define( 'WP_REDIS_READ_TIMEOUT', 1 );
+// define( 'WP_REDIS_PASSWORD', 'secret' );
+
+
 /**#@+
  * Authentication Unique Keys and Salts.
  *
@@ -57,7 +65,6 @@ define( 'AUTH_SALT',        'put your unique phrase here' );
 define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
 define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
 define( 'NONCE_SALT',       'put your unique phrase here' );
-define( 'WP_CACHE_KEY_SALT', getenv('WP_CACHE_KEY_SALT'));
 /**#@-*/
 
 /**

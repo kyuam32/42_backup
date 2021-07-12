@@ -6,10 +6,11 @@ services:
    - wordpress-php
   build: ./requirements/nginx/
   image: nginx:nlee
+  env_file: .env
   container_name: webserver
   ports:
    - "443:443"
-  restart: unless-stopped
+#   restart: always
   volumes:
    - wordpress:/var/www/wordpress
   networks:
@@ -17,18 +18,31 @@ services:
 
  wordpress-php:
   depends_on:
-   - mariadb
+   - redis_cache
   build: ./requirements/wordpress/
   image: wordpress-php:nlee
   container_name: wordpress-php
   env_file: .env
   ports:
    - "9000"
-  restart: unless-stopped
+#   restart: always
   volumes:
    - wordpress:/var/www/wordpress
   networks:
    - app-network
+
+ redis_cache:
+  depends_on:
+   - mariadb
+  build: ./requirements/bonus/redis/
+  image: redis_cache:nlee
+  container_name: redis_cache
+  env_file: .env
+#   restart: always
+  ports:
+   - "6379"
+  networks:
+   - app-network  
 
  mariadb:
   build:
@@ -36,6 +50,7 @@ services:
   image: mariadb:nlee
   env_file: .env
   container_name: mariadb
+#   restart: always
   ports:
    - "3306"
   volumes:

@@ -1,0 +1,13 @@
+{
+	"files.associations": {
+		"types.h": "c",
+		"stdio.h": "c",
+		"time.h": "c",
+		"history.h": "c",
+		"readline.h": "c",
+		"stdlib.h": "c",
+		"xmalloc.h": "c",
+		"locale": "c",
+		"string": "c"
+	}
+}

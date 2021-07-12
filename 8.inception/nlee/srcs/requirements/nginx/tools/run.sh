@@ -6,11 +6,10 @@
 #    By: namkyu <namkyu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 20:08:50 by namkyu            #+#    #+#              #
-#    Updated: 2021/05/28 17:41:14 by namkyu           ###   ########.fr        #
+#    Updated: 2021/06/15 14:57:19 by namkyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-echo "Generate SSC ..."
 # GENERATE PERSONAL KEY && SSC
 openssl req -newkey rsa:4096 -days 365 -nodes -x509 -subj\
 	"/C=KR/L=Seoul/O=42seoul/OU=nlee/CN=localhost"\
